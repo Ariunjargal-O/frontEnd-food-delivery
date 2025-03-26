@@ -44,6 +44,7 @@
 }
 
 :root {
+  --spacing-12: 48px;
   --spacing-2:8px;
   --spacing-3:12px;
   --spacing-4:16px;

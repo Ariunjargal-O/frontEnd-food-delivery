@@ -47,7 +47,7 @@ export const Header = () => {
                   Log in
                   <LogIn />
                 </DropdownMenuItem>
-                <DropdownMenuItem>
+                <DropdownMenuItem >
                   Sign up
                   <UserPlus />
                 </DropdownMenuItem>
@@ -94,12 +94,12 @@ export const Header = () => {
           </Link>
           <div className="flex gap-7 items-center">
             <div className="flex items-center gap-4">
-              <Link href="/create" className="text-black hover:text-red-500">
+              <Link href="/create" className="text-black hover:text-red-500 dark:text-white">
                 Sing up
               </Link>
               <Link
                 href="/login"
-                className="bg-black text-white px-5 py-2 rounded-full font-medium hover:bg-red-500 transition-colors"
+                className="bg-black text-white px-5 py-2 rounded-full font-medium hover:bg-red-500 transition-colors dark:bg-white dark:text-black"
               >
                 Log in
               </Link>

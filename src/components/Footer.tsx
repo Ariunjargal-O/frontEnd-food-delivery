@@ -19,6 +19,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { arrayBuffer } from "stream/consumers";
 
 export const Footer = () => {
   const isMobileQuery = useMediaQuery({ maxWidth: 639 });
@@ -29,7 +30,7 @@ export const Footer = () => {
   return (
     <div>
       {isMobile && (
-        <div className="bg-gray-200 p-(--spacing-3)">
+        <div className="p-(--spacing-3) border-t  ">
           <div className="flex gap-2 items-center">
             <img sizes="icon" src="/icon-logo.png" />
             <div className="flex flex-col items-center justify-center">
@@ -42,24 +43,26 @@ export const Footer = () => {
               </p>
             </div>
           </div>
-          <div className="flex justify-between">
+          <div className="flex justify-between items-center p-(--spacing-2)">
             <div>
               <div className="py-(--spacing-3)">
                 <h6 className="text-xl">Ari Eats </h6>
-               <div className=" text-gray-600 pl-2">
-               <Link href={`/`}>
-                  <p>Home</p>
-                </Link>
-                <Link href={`/`}>
-                  <p>Contact us</p>
-                </Link>
-                <Link href={`/`}>
-                  <p>Delivery zone</p>
-                </Link>
-               </div>
+                <div className=" text-gray-500 pl-2">
+                  <Link href={`/`}>
+                    <p>Home</p>
+                  </Link>
+                  <Link href={`/`}>
+                    <p>Contact us</p>
+                  </Link>
+                  <Link href={`/`}>
+                    <p>Delivery zone</p>
+                  </Link>
+                </div>
               </div>
               <Sheet>
-                <SheetTrigger className="flex gap-1 items-center text-xl">Menu <ChevronRight size={18}/></SheetTrigger>
+                <SheetTrigger className="flex gap-1 items-center text-xl">
+                  Menu <ChevronRight size={18} />
+                </SheetTrigger>
                 <SheetContent>
                   <SheetHeader className="flex justify-center">
                     <div className="flex gap-2">
@@ -84,7 +87,7 @@ export const Footer = () => {
                     Ta yg odoo yu idhiig husej bna ve?
                   </SheetDescription>
 
-                  <div className="px-(--spacing-4) flex flex-col gap-4">
+                  <div className="px-(--spacing-4) flex flex-col gap-6">
                     <Link href={`/menu`}>
                       {" "}
                       <SheetTrigger className="flex gap-3">
@@ -161,7 +164,7 @@ export const Footer = () => {
             <div>
               <p className="text-2xl ">Follow us</p>
 
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-2 p-2">
                 <Link href="#" className=" hover:text-gray-300 flex gap-1">
                   <Facebook size={24} />
                   Facebook
@@ -176,23 +179,162 @@ export const Footer = () => {
           <div className="border-t border-gray-800 ">
             <div className="flex flex-wrap justify-between text-gray-400 text-sm pt-(--spacing-2)">
               <div className="mb-2 md:mb-0">Copy right 2025 © AriiEats LLC</div>
-              <div className="flex gap-6">
-                <p><Link href="#" className="hover:text-gray-300">
-                  Privacy policy
-                </Link></p>
-               <p> <Link href="#" className="hover:text-gray-300">
-                  Terms and conditoin
-                </Link></p>
-                <p><Link href="#" className="hover:text-gray-300">
-                  Cookie policy
-                </Link></p>
+              <div className="flex gap-6 text-[13px] ">
+                <p>
+                  <Link href="#" className="hover:text-gray-300">
+                    Privacy policy
+                  </Link>
+                </p>
+                <p>
+                  {" "}
+                  <Link href="#" className="hover:text-gray-300">
+                    Terms and conditoin
+                  </Link>
+                </p>
+                <p>
+                  <Link href="#" className="hover:text-gray-300">
+                    Cookie policy
+                  </Link>
+                </p>
               </div>
             </div>
           </div>
         </div>
       )}
 
-      {!isMobile && <div></div>}
+      {!isMobile && (
+        <div className="">
+          <div className="bg-red-500 py-(--spacing-4) whitespace-nowrap my-(--spacing-4)">
+            <div className="animate-marquee overflow-hidden flex">
+              {Array(10)
+                .fill("Fresh fast delivered")
+                .map((text, i) => (
+                  <p  className="text-2xl text-white mx-4 ">Fresh fast delivered</p>
+                ))}
+            </div>
+          </div>
+          <div>
+            <div className="p-(--spacing-3) flex items-start gap-3 w-full justify-evenly">
+              <div className="flex gap-2 items-center flex-col">
+                <img sizes="icon" src="/icon-logo.png" />
+                <div className="flex flex-col items-center justify-center">
+                  <h2 className="flex gap-1 text-xl font-bold leading-4">
+                    <p className=" text-red-500">Arii </p>
+                    <p className="text-black dark:text-white">Eats</p>
+                  </h2>
+                  <p className="text-gray-400 text-sm leading-7">
+                    Swift delivery
+                  </p>
+                </div>
+              </div>
+
+              <div className="">
+                <h6 className="text-xl">Ari Eats </h6>
+                <div className="pl-2">
+                  <Link href={`/`}>
+                    <p>Home</p>
+                  </Link>
+                  <Link href={`/`}>
+                    <p>Contact us</p>
+                  </Link>
+                  <Link href={`/`}>
+                    <p>Delivery zone</p>
+                  </Link>
+                </div>
+              </div>
+
+              <div>
+                <p className="flex gap-1 items-center text-xl">Menu</p>
+
+                <div className="pl-(--spacing-4) flex flex-row gap-7">
+                  <div>
+                    <Link href={`/menu`}>
+                      {" "}
+                      <p className="flex gap-3">Appetizers</p>
+                    </Link>
+                    <Link href={`/menu`}>
+                      {" "}
+                      <p className="flex gap-3">Salads</p>
+                    </Link>
+                    <Link href={`/menu`}>
+                      <p className="flex gap-3">Pizzas</p>
+                    </Link>
+                    <Link href={`/menu`}>
+                      {" "}
+                      <p className="flex gap-3">Main dishes</p>
+                    </Link>
+                    <Link href={`/menu`}>
+                      {" "}
+                      <p className="flex gap-3">Desserts</p>
+                    </Link>
+                  </div>
+                  <div>
+                    <Link href={`/menu`}>
+                      {" "}
+                      <p className="flex gap-3">Side dish</p>
+                    </Link>
+                    <Link href={`/menu`}>
+                      {" "}
+                      <p className="flex gap-3">Brunch</p>
+                    </Link>
+                    <Link href={`/menu`}>
+                      {" "}
+                      <p className="flex gap-3">Desserts</p>
+                    </Link>
+                    <Link href={`/menu`}>
+                      {" "}
+                      <p className="flex gap-3">Beverages</p>
+                    </Link>
+                    <Link href={`/menu`}>
+                      {" "}
+                      <p className="flex gap-3">Fish & Sea foods</p>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <p className="text-xl ">Follow us</p>
+                <div className="flex flex-col gap-2 p-2">
+                  <Link href="#" className=" hover:text-gray-300 flex gap-1">
+                    <Facebook size={20} />
+                    Facebook
+                  </Link>
+                  <Link href="#" className=" hover:text-gray-300 flex gap-1">
+                    <Instagram size={20} />
+                    Instagram
+                  </Link>
+                </div>
+              </div>
+            </div>
+            <div className="border-t border-gray-800 py-(--spacing-4) mx-(--spacing-5)">
+              <div className="flex flex-wrap justify-between text-gray-400 text-sm pt-(--spacing-2)">
+                <div className="mb-2 md:mb-0">
+                  Copy right 2025 © AriiEats LLC
+                </div>
+                <div className="flex gap-6 ">
+                  <p>
+                    <Link href="#" className="hover:text-gray-300 text-xs">
+                      Privacy policy
+                    </Link>
+                  </p>
+                  <p>
+                    {" "}
+                    <Link href="#" className="hover:text-gray-300">
+                      Terms and conditoin
+                    </Link>
+                  </p>
+                  <p>
+                    <Link href="#" className="hover:text-gray-300">
+                      Cookie policy
+                    </Link>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
