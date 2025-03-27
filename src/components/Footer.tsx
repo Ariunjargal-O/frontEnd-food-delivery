@@ -31,7 +31,8 @@ export const Footer = () => {
     <div>
       {isMobile && (
         <div className="p-(--spacing-3) border-t  ">
-          <div className="flex gap-2 items-center">
+<Link href={`/`}>
+<div className="flex gap-2 items-center">
             <img sizes="icon" src="/icon-logo.png" />
             <div className="flex flex-col items-center justify-center">
               <h2 className="flex gap-1 text-2xl font-bold leading-4">
@@ -42,7 +43,7 @@ export const Footer = () => {
                 Swift delivery
               </p>
             </div>
-          </div>
+          </div></Link>
           <div className="flex justify-between items-center p-(--spacing-2)">
             <div>
               <div className="py-(--spacing-3)">
@@ -209,13 +210,14 @@ export const Footer = () => {
               {Array(10)
                 .fill("Fresh fast delivered")
                 .map((text, i) => (
-                  <p  className="text-2xl text-white mx-4 ">Fresh fast delivered</p>
+                  <p key={text} className="text-2xl text-white mx-4 ">Fresh fast delivered</p>
                 ))}
             </div>
           </div>
           <div>
             <div className="p-(--spacing-3) flex items-start gap-3 w-full justify-evenly">
-              <div className="flex gap-2 items-center flex-col">
+<Link href={`/`}>
+<div className="flex gap-2 items-center flex-col">
                 <img sizes="icon" src="/icon-logo.png" />
                 <div className="flex flex-col items-center justify-center">
                   <h2 className="flex gap-1 text-xl font-bold leading-4">
@@ -226,7 +228,7 @@ export const Footer = () => {
                     Swift delivery
                   </p>
                 </div>
-              </div>
+              </div></Link>
 
               <div className="">
                 <h6 className="text-xl">Ari Eats </h6>
@@ -338,138 +340,3 @@ export const Footer = () => {
     </div>
   );
 };
-
-// {/* <div className="flex flex-col min-h-screen">
-//       {/* Top banner with repeating text */}
-//       <div className="bg-red-500 py-4 overflow-hidden whitespace-nowrap">
-//         <div className="animate-marquee inline-block">
-//           {Array(10)
-//             .fill("Fresh fast delivered")
-//             .map((text, i) => (
-//               <span key={i} className="text-white text-2xl mx-4">
-//                 {text}
-//               </span>
-//             ))}
-//         </div>
-//       </div>
-
-//       Main content area
-//       <div className="flex-grow bg-black text-white">
-//         {/* Footer content */}
-//         <div className="container mx-auto py-16 px-4">
-//           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-//             {/* Logo section */}
-//             <div className="flex flex-col items-start">
-//               <div className="flex items-center mb-2">
-//                 <div className="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center">
-//                   <svg viewBox="0 0 24 24" className="w-8 h-8 text-white" fill="none" stroke="currentColor">
-//                     <path
-//                       strokeLinecap="round"
-//                       strokeLinejoin="round"
-//                       strokeWidth={2}
-//                       d="M12 18h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"
-//                     />
-//                   </svg>
-//                 </div>
-//               </div>
-//               <h2 className="text-xl font-bold">
-//                 <span className="text-white">Nom</span>
-//                 <span className="text-red-500">Nom</span>
-//               </h2>
-//               <p className="text-gray-400 text-sm">Swift delivery</p>
-//             </div>
-
-//             {/* NOMNOM section */}
-//             <div>
-//               <h3 className="text-gray-400 uppercase mb-4 tracking-wider">NOMNOM</h3>
-//               <ul className="space-y-3">
-//                 <li>
-//                   <Link href="#" className="hover:text-gray-300">
-//                     Home
-//                   </Link>
-//                 </li>
-//                 <li>
-//                   <Link href="#" className="hover:text-gray-300">
-//                     Contact us
-//                   </Link>
-//                 </li>
-//                 <li>
-//                   <Link href="#" className="hover:text-gray-300">
-//                     Delivery zone
-//                   </Link>
-//                 </li>
-//               </ul>
-//             </div>
-
-//             {/* MENU section */}
-//             <div>
-//               <h3 className="text-gray-400 uppercase mb-4 tracking-wider">MENU</h3>
-//               <div className="grid grid-cols-2 gap-x-8 gap-y-3">
-//                 <Link href="#" className="hover:text-gray-300">
-//                   Appetizers
-//                 </Link>
-//                 <Link href="#" className="hover:text-gray-300">
-//                   Side dish
-//                 </Link>
-//                 <Link href="#" className="hover:text-gray-300">
-//                   Salads
-//                 </Link>
-//                 <Link href="#" className="hover:text-gray-300">
-//                   Brunch
-//                 </Link>
-//                 <Link href="#" className="hover:text-gray-300">
-//                   Pizzas
-//                 </Link>
-//                 <Link href="#" className="hover:text-gray-300">
-//                   Desserts
-//                 </Link>
-//                 <Link href="#" className="hover:text-gray-300">
-//                   Main dishes
-//                 </Link>
-//                 <Link href="#" className="hover:text-gray-300">
-//                   Beverages
-//                 </Link>
-//                 <Link href="#" className="hover:text-gray-300">
-//                   Desserts
-//                 </Link>
-//                 <Link href="#" className="hover:text-gray-300">
-//                   Fish & Sea foods
-//                 </Link>
-//               </div>
-//             </div>
-
-//             {/* FOLLOW US section */}
-//             <div>
-//               <h3 className="text-gray-400 uppercase mb-4 tracking-wider">FOLLOW US</h3>
-//               <div className="flex space-x-4">
-//                 <Link href="#" className="text-white hover:text-gray-300">
-//                   <Facebook size={24} />
-//                 </Link>
-//                 <Link href="#" className="text-white hover:text-gray-300">
-//                   <Instagram size={24} />
-//                 </Link>
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-
-//         {/* Bottom footer with copyright */}
-//         <div className="border-t border-gray-800">
-//           <div className="container mx-auto py-6 px-4">
-//             <div className="flex flex-wrap justify-between text-gray-400 text-sm">
-//               <div className="mb-2 md:mb-0">Copy right 2024 © Nomnom LLC</div>
-//               <div className="flex flex-wrap gap-6">
-//                 <Link href="#" className="hover:text-gray-300">
-//                   Privacy policy
-//                 </Link>
-//                 <Link href="#" className="hover:text-gray-300">
-//                   Terms and conditoin
-//                 </Link>
-//                 <Link href="#" className="hover:text-gray-300">
-//                   Cookie policy
-//                 </Link>
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-//       </div> */}

@@ -1,4 +1,5 @@
 "use client";
+
 import { useMediaQuery } from "react-responsive";
 import { LogIn, User, UserPlus } from "lucide-react";
 import Link from "next/link";
@@ -26,6 +27,7 @@ export const Header = () => {
     <div>
       {isMobile && (
         <header className="flex justify-between px-(--spacing-3) py-(--spacing-4)">
+          <Link href={`/`}>
           <div className="flex gap-2">
             <img sizes="icon" src="/icon-logo.png" />
             <div className="flex flex-col items-center justify-center">
@@ -34,7 +36,7 @@ export const Header = () => {
                 <span className="text-black dark:text-white">Eats</span>
               </h2>
             </div>
-          </div>
+          </div></Link>
           <div className="flex gap-2">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -43,14 +45,18 @@ export const Header = () => {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
+                <Link href={`/costumer/login`}>
                 <DropdownMenuItem>
+
                   Log in
                   <LogIn />
-                </DropdownMenuItem>
+                </DropdownMenuItem></Link>
+                <Link href={`/costumer/signup`}>
                 <DropdownMenuItem >
                   Sign up
                   <UserPlus />
                 </DropdownMenuItem>
+                </Link>
               </DropdownMenuContent>
             </DropdownMenu>
             <DropdownMenu>
@@ -94,12 +100,12 @@ export const Header = () => {
           </Link>
           <div className="flex gap-7 items-center">
             <div className="flex items-center gap-4">
-              <Link href="/create" className="text-black hover:text-red-500 dark:text-white">
+              <Link href="/costumer/signup" className="text-black hover:text-red-500 dark:text-white dark:hover:text-red-500">
                 Sing up
               </Link>
               <Link
-                href="/login"
-                className="bg-black text-white px-5 py-2 rounded-full font-medium hover:bg-red-500 transition-colors dark:bg-white dark:text-black"
+                href="/costumer/login"
+                className="bg-black text-white px-5 py-2 rounded-full font-medium hover:bg-red-500 transition-colors dark:bg-white dark:text-black dark:hover:bg-red-500 dark:hover:text-white"
               >
                 Log in
               </Link>
