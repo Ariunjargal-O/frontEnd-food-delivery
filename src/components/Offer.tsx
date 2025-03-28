@@ -19,32 +19,30 @@ export const Offer = () => {
   }, [isMobileQuery]);
   const plugin = React.useRef(
     Autoplay({ delay: 2000, stopOnInteraction: true })
-  )
+  );
   return (
-    <div>
+    <div className="w-full ">
       {isMobile && (
-        <div>
-          <Carousel
-            plugins={[
-              Autoplay({
-                delay: 2000,
-              }),
-            ]}
-            className="w-full max-w-xs"
-          >
-            <CarouselContent>
-              {Array.from({ length: 5 }).map((_, index) => (
-                <CarouselItem key={index}>
-                  <div className="p-1">
-                    <img src="/img-home.png" />
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
-          </Carousel>
-        </div>
+        <Carousel
+          plugins={[
+            Autoplay({
+              delay: 2000,
+            }),
+          ]}
+          className="w-full"
+        >
+          <CarouselContent>
+            {Array.from({ length: 5 }).map((_, index) => (
+              <CarouselItem key={index}>
+                <div className="p-1">
+                  <img src="/img-home.png" />
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="absolute left-3 hover:bg-red-500" />
+          <CarouselNext className="absolute right-3 hover:bg-red-500" />
+        </Carousel>
       )}
 
       {!isMobile && (
