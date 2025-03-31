@@ -30,7 +30,7 @@ export const CategoriesList = () => {
             <h2 className="font-semibold text-xl leading-9 pt-(--spacing-4) px-(--spacing-7)">
               Categories
             </h2>
-            <div className=" flex px-(--spacing-7) gap-3 items-center">
+            <div className=" flex px-(--spacing-7) gap-3 items-center pt-2">
               <Button className="w-8 h-4" variant={"outline"}>
                 <ChevronLeft />
               </Button>
@@ -62,18 +62,44 @@ export const CategoriesList = () => {
 
       {!isMobile && (
         <div>
-          <h2 className="font-semibold text-2xl leading-9 pt-(--spacing-8) px-(--spacing-10)">
+          <h2 className="font-semibold text-3xl leading-9 pt-(--spacing-8) px-(--spacing-10)">
             Categories
           </h2>
-
-          <Link href={`#`}>
-            <Badge
-              className="text-base font-normal hover:bg-red-500 rounded-2xl"
-              variant="outline"
-            >
-              Badge
-            </Badge>
-          </Link>
+          <div className=" flex px-(--spacing-10) gap-3 items-center justify-between pt-2">
+            <Button className="w-8 h-4" variant={"outline"}>
+              <ChevronLeft />
+            </Button>
+            <div className="flex gap-3 overflow-scroll">
+              {" "}
+              <Link href={`#`}>
+                <Badge
+                  className="text-base font-normal hover:bg-red-500 rounded-2xl"
+                  variant="outline"
+                >
+                  Badge
+                </Badge>
+              </Link>
+              <Link href={`#`}>
+                <Badge
+                  className="text-base font-normal hover:bg-red-500 rounded-2xl"
+                  variant="outline"
+                >
+                  Badge
+                </Badge>
+              </Link>
+              <Link href={`#`}>
+                <Badge
+                  className="text-base font-normal hover:bg-red-500 rounded-2xl"
+                  variant="outline"
+                >
+                  Badge
+                </Badge>
+              </Link>
+            </div>
+            <Button className="w-8 h-4" variant={"outline"}>
+              <ChevronRight />
+            </Button>
+          </div>
         </div>
       )}
     </div>

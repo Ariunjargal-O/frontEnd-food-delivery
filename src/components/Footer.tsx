@@ -31,19 +31,18 @@ export const Footer = () => {
     <div>
       {isMobile && (
         <div className="p-(--spacing-3) border-t  ">
-<Link href={`/`}>
-<div className="flex gap-2 items-center">
-            <img sizes="icon" src="/icon-logo.png" />
-            <div className="flex flex-col items-center justify-center">
-              <h2 className="flex gap-1 text-2xl font-bold leading-4">
-                <p className=" text-red-500">Arii </p>
-                <p className="text-black dark:text-white">Eats</p>
-              </h2>
-              <p className="text-gray-400 text-base leading-7">
-                Swift delivery
-              </p>
+          <Link href={`/`}>
+            <div className="flex gap-2 items-center">
+              <img sizes="icon" src="/icon-logo.png" />
+              <div className="flex flex-col items-center justify-center">
+                <h2 className="flƒex gap-1 text-2xl font-bold leading-4">
+                  <p className=" text-red-500 leading-7">Arii </p>
+                  <p className="text-black dark:text-white">Eats</p>
+                </h2>
+                
+              </div>
             </div>
-          </div></Link>
+          </Link>
           <div className="flex justify-between items-center p-(--spacing-2)">
             <div>
               <div className="py-(--spacing-3)">
@@ -207,28 +206,30 @@ export const Footer = () => {
         <div className="">
           <div className="bg-red-500 py-(--spacing-4) whitespace-nowrap my-(--spacing-4)">
             <div className="animate-marquee overflow-hidden flex">
-              {Array(10)
+              {/* {Array(10)
                 .fill("Fresh fast delivered")
                 .map((text, i) => (
                   <p key={text} className="text-2xl text-white mx-4 ">Fresh fast delivered</p>
-                ))}
+                ))} */}
+              <p>Fresh fast delivered</p>
             </div>
           </div>
           <div>
             <div className="p-(--spacing-3) flex items-start gap-3 w-full justify-evenly">
-<Link href={`/`}>
-<div className="flex gap-2 items-center flex-col">
-                <img sizes="icon" src="/icon-logo.png" />
-                <div className="flex flex-col items-center justify-center">
-                  <h2 className="flex gap-1 text-xl font-bold leading-4">
-                    <p className=" text-red-500">Arii </p>
-                    <p className="text-black dark:text-white">Eats</p>
-                  </h2>
-                  <p className="text-gray-400 text-sm leading-7">
-                    Swift delivery
-                  </p>
+              <Link href={`/`}>
+                <div className="flex gap-2 items-center flex-col">
+                  <img sizes="icon" src="/icon-logo.png" />
+                  <div className="flex flex-col items-center justify-center">
+                    <h2 className="flex gap-1 text-xl font-bold leading-4">
+                      <p className=" text-red-500">Arii </p>
+                      <p className="text-black dark:text-white">Eats</p>
+                    </h2>
+                    <p className="text-gray-400 text-sm leading-7">
+                      Swift delivery
+                    </p>
+                  </div>
                 </div>
-              </div></Link>
+              </Link>
 
               <div className="">
                 <h6 className="text-xl">Ari Eats </h6>

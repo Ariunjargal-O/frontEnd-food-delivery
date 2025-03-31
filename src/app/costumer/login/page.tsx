@@ -18,7 +18,7 @@ export default function LoginPage() {
     <div>
       {isMobile && (
         <div className="flex flex-col justify-around ">
-            <Card className=" w-fit h-auto p-0 m-10">
+          <Card className=" w-fit h-auto p-0 m-10">
             <img className="" src="/img-create-acc.png" alt="img-create-acc" />
           </Card>
           <div className="flex flex-col px-(--spacing-9)">
@@ -41,12 +41,15 @@ export default function LoginPage() {
             <p className="font-normal text-sm leading-5 underline mb-7 hover:text-red-500 pl-3">
               Forget password ?{" "}
             </p>
-            <Button
-              variant={"outline"}
-              className="bg-gray-300 text-slate-800 dark:bg-gray-100 font-normal text-base leading-6  "
-            >
-              Let's go
-            </Button>
+            <Link href={`/login`}>
+              {" "}
+              <Button
+                variant={"outline"}
+                className="bg-gray-300 text-slate-800 dark:bg-gray-100 font-normal text-base leading-6  "
+              >
+                Let's go
+              </Button>
+            </Link>
 
             <div className="flex gap-3 my-6 justify-center">
               <p className="font-normal leading-6 text-sm text-gray-500">
@@ -60,8 +63,6 @@ export default function LoginPage() {
               </Link>
             </div>
           </div>
-
-
         </div>
       )}
       {!isMobile && (

@@ -26,7 +26,7 @@ export const Offer = () => {
         <Carousel
           plugins={[
             Autoplay({
-              delay: 2000,
+              delay: 2500,
             }),
           ]}
           className="w-full"
@@ -67,8 +67,8 @@ export const Offer = () => {
                 <img src="/img-home.png" />
               </CarouselItem>
             </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
+            <CarouselPrevious className="absolute left-7 dark:bg-black hover:bg-red-500 dark:hover:bg-red-500" />
+            <CarouselNext className="absolute right-7 dark:bg-black hover:bg-red-500 dark:hover:bg-red-500" />
           </Carousel>
         </div>
       )}
