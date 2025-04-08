@@ -1,21 +1,26 @@
 "use client";
 
 import * as React from "react";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
 import { Button } from "./ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { BASE_URL } from "@/constnants";
 
-export const CategoriesList = () => {
+export const CategoriesList = async () => {
+//   const data = await fetch(`${BASE_URL}/food-categories`, {
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//   });
+
+  // console.log(data);
+
+
+
   const isMobileQuery = useMediaQuery({ maxWidth: 639 });
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
