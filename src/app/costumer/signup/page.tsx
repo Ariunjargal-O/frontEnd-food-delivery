@@ -13,6 +13,9 @@ export default function SingupPage() {
   useEffect(() => {
     setIsMobile(isMobileQuery);
   }, [isMobileQuery]);
+
+
+  
   return (
     <div>
       {isMobile && (
@@ -37,6 +40,7 @@ export default function SingupPage() {
             <Input
               placeholder="Enter your email address"
               className="mb-6"
+
             ></Input>
             <Button
               variant={"outline"}

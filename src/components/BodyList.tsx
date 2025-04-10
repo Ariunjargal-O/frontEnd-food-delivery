@@ -1,8 +1,9 @@
+
 import { ChevronLeft, ChevronRight, Minus, Plus } from "lucide-react";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { BASE_URL } from "@/constnants";
-import "server-only";
+// import "server-only";
 import * as React from "react";
 import {
   Card,
@@ -53,23 +54,52 @@ export type FoodType = {
 };
 
 export const BodyList = async () => {
-  const dataCate = await fetch(`${BASE_URL}/food-categories`, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  const category = await dataCate.json();
-  // console.log(category);
+  // Client sider render hiibel
+  // export const BodyList =  () => {
+  // const [foodList, setFoods] = useState([])
+  // useEffect(() => {
+  //   const fetchdata = async () => {
+  //     const dataCate = await fetch(`${BASE_URL}/food-categories`, {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+  //     const category = await dataCate.json();
+  //     setFoods(category)
+  //     // console.log(category);
 
-  const dataFood = await fetch(`${BASE_URL}/food-categories/with-foods`, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  const foods = await dataFood.json();
-//   console.log(foods.categories);
-  const foodList =foods.categories
-console.log(foodList)
+  //     // const dataFood = await fetch(`${BASE_URL}/food-categories/with-foods`, {
+  //     //   headers: {
+  //     //     "Content-Type": "application/json",
+  //     //   },
+  //     // });
+  //     // const foods = await dataFood.json();
+  //     // //   console.log(foods.categories);
+  //     // const foodList = foods.categories;
+  //     // console.log(foodList);
+  //     // setFoods(foodList)
+  //   };
+  //   fetchdata()
+  // },[]);
+
+
+    const dataCate = await fetch(`${BASE_URL}/food-categories`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const category = await dataCate.json();
+    // console.log(category);
+
+    const dataFood = await fetch(`${BASE_URL}/food-categories/with-foods`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const foods = await dataFood.json();
+  //   console.log(foods.categories);
+    const foodList =foods.categories
+  // console.log(foodList)
   return (
     <div>
       <div>
@@ -109,96 +139,96 @@ console.log(foodList)
                     {catefood.categoryName}
                   </h2>
                   <div className="flex gap-9">
-                  {catefood.foods.map((food: FoodType) => {
-                    return (
-                      <div key={food._id}>
-                        <Card className="w-fit h-fit">
-                          <CardContent className="w-fit relative">
-                            <img
-                              className="w-[365px] h-[210px] rounded-2xl ralative"
-                              src={food.image}
-                            />
-                            <Dialog>
-                              <DialogTrigger asChild>
-                                <Button
-                                  variant="outline"
-                                  className="absolute z-10 right-10 bottom-4 rounded-2xl"
-                                >
-                                  <Plus />
-                                </Button>
-                              </DialogTrigger>
-                              <DialogContent className="">
-                                <DialogTitle className="flex p-0 gap-4">
-                                  <img
-                                    className="w-[377px] h-[234px] rounded-2xl ralative"
-                                    src={food.image}
-                                  />
-                                  <div className="flex flex-col justify-between">
-                                    <DialogHeader>
-                                      {" "}
-                                      <DialogTitle className="font-semibold text-2xl text-red-500 leading-8">
-                                      {food.foodName}
-                                      </DialogTitle>
-                                      <DialogDescription className="text-sm laeding-5 font-normal">
-                                      {food.ingredients}
-                                      </DialogDescription>
-                                    </DialogHeader>
+                    {catefood.foods.map((food: FoodType) => {
+                      return (
+                        <div key={food._id}>
+                          <Card className="w-fit h-fit">
+                            <CardContent className="w-fit relative">
+                              <img
+                                className="w-[365px] h-[210px] rounded-2xl ralative"
+                                src={food.image}
+                              />
+                              <Dialog>
+                                <DialogTrigger asChild>
+                                  <Button
+                                    variant="outline"
+                                    className="absolute z-10 right-10 bottom-4 rounded-2xl"
+                                  >
+                                    <Plus />
+                                  </Button>
+                                </DialogTrigger>
+                                <DialogContent className="">
+                                  <DialogTitle className="flex p-0 gap-4">
+                                    <img
+                                      className="w-[377px] h-[234px] rounded-2xl ralative"
+                                      src={food.image}
+                                    />
+                                    <div className="flex flex-col justify-between">
+                                      <DialogHeader>
+                                        {" "}
+                                        <DialogTitle className="font-semibold text-2xl text-red-500 leading-8">
+                                          {food.foodName}
+                                        </DialogTitle>
+                                        <DialogDescription className="text-sm laeding-5 font-normal">
+                                          {food.ingredients}
+                                        </DialogDescription>
+                                      </DialogHeader>
 
-                                    <div className="flex flex-col gap-2">
-                                      <div className="flex justify-between">
-                                        <div className="flex flex-col">
-                                          <p className="text-sm leading-3">
-                                            Total Price
-                                          </p>
-                                          <p className="font-semibold text-lg leading-7">
-                                            $12.99
-                                          </p>
-                                        </div>
+                                      <div className="flex flex-col gap-2">
+                                        <div className="flex justify-between">
+                                          <div className="flex flex-col">
+                                            <p className="text-sm leading-3">
+                                              Total Price
+                                            </p>
+                                            <p className="font-semibold text-lg leading-7">
+                                              $12.99
+                                            </p>
+                                          </div>
 
-                                        <div className=" flex justify-between items-center">
-                                          <div className="flex gap-3 items-center">
-                                            <Button
-                                              className="w-8 h-8 rounded-4xl"
-                                              variant="outline"
-                                            >
-                                              <Minus />
-                                            </Button>
-                                            <p>1</p>
-                                            <Button
-                                              className="w-8 h-8 rounded-4xl"
-                                              variant="outline"
-                                            >
-                                              <Plus />
-                                            </Button>
+                                          <div className=" flex justify-between items-center">
+                                            <div className="flex gap-3 items-center">
+                                              <Button
+                                                className="w-8 h-8 rounded-4xl"
+                                                variant="outline"
+                                              >
+                                                <Minus />
+                                              </Button>
+                                              <p>1</p>
+                                              <Button
+                                                className="w-8 h-8 rounded-4xl"
+                                                variant="outline"
+                                              >
+                                                <Plus />
+                                              </Button>
+                                            </div>
                                           </div>
                                         </div>
+
+                                        <Button>Add Cart</Button>
                                       </div>
-
-                                      <Button>Add Cart</Button>
                                     </div>
-                                  </div>
-                                </DialogTitle>
-                              </DialogContent>
-                            </Dialog>
-                          </CardContent>
-                          <CardHeader>
-                            <CardTitle className="flex justify-between">
-                              <h3 className="font-semibold text-2xl text-red-500 leading-8">
-                               {food.foodName}
-                              </h3>
-                              <p className="font-semibold text-lg leading-7">
-                                ${food.price}
-                              </p>
-                            </CardTitle>
+                                  </DialogTitle>
+                                </DialogContent>
+                              </Dialog>
+                            </CardContent>
+                            <CardHeader>
+                              <CardTitle className="flex justify-between">
+                                <h3 className="font-semibold text-2xl text-red-500 leading-8">
+                                  {food.foodName}
+                                </h3>
+                                <p className="font-semibold text-lg leading-7">
+                                  ${food.price}
+                                </p>
+                              </CardTitle>
 
-                            <CardDescription className="text-sm laeding-5 font-normal">
-                            {food.ingredients}
-                            </CardDescription>
-                          </CardHeader>
-                        </Card>
-                      </div>
-                    );
-                  })}
+                              <CardDescription className="text-sm laeding-5 font-normal">
+                                {food.ingredients}
+                              </CardDescription>
+                            </CardHeader>
+                          </Card>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               );
