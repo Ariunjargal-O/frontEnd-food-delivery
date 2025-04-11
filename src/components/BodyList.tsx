@@ -1,4 +1,3 @@
-
 import { ChevronLeft, ChevronRight, Minus, Plus } from "lucide-react";
 import { Button } from "./ui/button";
 import Link from "next/link";
@@ -82,23 +81,22 @@ export const BodyList = async () => {
   //   fetchdata()
   // },[]);
 
+  const dataCate = await fetch(`${BASE_URL}/food-categories`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const category = await dataCate.json();
+  // console.log(category);
 
-    const dataCate = await fetch(`${BASE_URL}/food-categories`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const category = await dataCate.json();
-    // console.log(category);
-
-    const dataFood = await fetch(`${BASE_URL}/food-categories/with-foods`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const foods = await dataFood.json();
-  //   console.log(foods.categories);
-    const foodList =foods.categories
+  const dataFood = await fetch(`${BASE_URL}/food-categories/with-foods`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const foods = await dataFood.json();
+    console.log(foods.categories);
+  const foodList = foods.categories;
   // console.log(foodList)
   return (
     <div>

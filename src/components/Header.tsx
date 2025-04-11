@@ -36,7 +36,8 @@ export const Header = () => {
                 <span className="text-black dark:text-white">Eats</span>
               </h2>
             </div>
-          </div></Link>
+          </div>
+          </Link>
           <div className="flex gap-2">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -45,13 +46,13 @@ export const Header = () => {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <Link href={`/costumer/login`}>
+                <Link href={`/login`}>
                 <DropdownMenuItem>
 
                   Log in
                   <LogIn />
                 </DropdownMenuItem></Link>
-                <Link href={`/costumer/signup`}>
+                <Link href={`/signup`}>
                 <DropdownMenuItem >
                   Sign up
                   <UserPlus />
@@ -100,11 +101,11 @@ export const Header = () => {
           </Link>
           <div className="flex gap-7 items-center">
             <div className="flex items-center gap-4">
-              <Link href="/costumer/signup" className="text-black hover:text-red-500 dark:text-white dark:hover:text-red-500">
+              <Link href="/signup" className="text-black hover:text-red-500 dark:text-white dark:hover:text-red-500">
                 Sing up
               </Link>
               <Link
-                href="/costumer/login"
+                href="/login"
                 className="bg-black text-white px-5 py-2 rounded-full font-medium hover:bg-red-500 transition-colors dark:bg-white dark:text-black dark:hover:bg-red-500 dark:hover:text-white"
               >
                 Log in
