@@ -21,8 +21,8 @@ export const AdminOrderSec = () => {
       const res = await fetch(`${BASE_URL}/food-orders/with-users`, {
         headers: { "Content-Type": "application/json" },
       });
-      const dataFoodOrder = res.json();
-    //   setOrder(dataFoodOrder.categories);
+      const dataFoodOrder = await res.json();
+      setOrder(dataFoodOrder.categories);
       console.log(dataFoodOrder);
     };
     data();
@@ -30,7 +30,7 @@ export const AdminOrderSec = () => {
   return (
     <div>
       <div className="container mx-auto py-10">
-        {/* <DataTable columns={columns}  /> */}
+        <DataTable columns={columns} data={order} />
       </div>
 
       <div>
