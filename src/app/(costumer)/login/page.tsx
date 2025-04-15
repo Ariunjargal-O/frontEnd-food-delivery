@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, User } from "lucide-react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
@@ -34,6 +34,12 @@ export type UserType = {
   phoneNumber: number;
   address: string;
 };
+export type DecodedTokenType = {
+user:{  email: string;
+  password: string;
+  role: string;
+  _id: string;}
+};
 
 export default function LoginPage() {
   const isMobileQuery = useMediaQuery({ maxWidth: 639 });
@@ -42,19 +48,34 @@ export default function LoginPage() {
     setIsMobile(isMobileQuery);
   }, [isMobileQuery]);
 
-  const loginUser = async (val: z.infer<typeof formSchema>) => {
+  const router = useRouter()
+  const onSubmit = async (val: z.infer<typeof formSchema>) => {
     // console.log(val);
+    try {
+      const response = await fetch(`${BASE_URL}/users/login`, {
+        method: "POST",
+        body: JSON.stringify(val),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const { token } = await response.json();
+      console.log(token);
 
-    const response = await fetch(`${BASE_URL}/users/login`, {
-      method: "POST",
-      body: JSON.stringify(val),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const user = await response.json();
-    console.log(user);
-    return user;
+      localStorage.setItem("token", token);
+
+      const decodeToken: DecodedTokenType = jwtDecode(token);
+      console.log(decodeToken);
+      if(decodeToken.user.role == "ADMIN"){
+        router.push("/admin")
+        return;
+      }
+      else{
+router.push("/")
+      }
+    } catch(error:any) {
+      console.log((error as Error).message);
+    }
   };
 
   const formSchema = z.object({
@@ -74,20 +95,20 @@ export default function LoginPage() {
     },
   });
 
-  const router = useRouter();
-  const onSubmit = async (val: z.infer<typeof formSchema>) => {
-    try {
-      // console.log(val);
-      const user = await loginUser(val);
-      if (user) {
-        toast("User successfully register.");
-      }
-      router.push("/login");
-      // console.log(user);
-    } catch (error) {
-      console.log((error as Error).message);
-    }
-  };
+  // const router = useRouter();
+  // const onSubmit = async (val: z.infer<typeof formSchema>) => {
+  //   try {
+  //     // console.log(val);
+  //     const user = await loginUser(val);
+  //     // if (user:void) {
+  //       toast("User successfully register.");
+  //     }
+  //     router.push("/login");
+  //     // console.log(user);
+  //   } catch (error) {
+  //     console.log((error as Error).message);
+  //   }
+  // };
 
   //     const response = await fetch(`${BASE_URL}/users/login`, {
   //       method: "POST",
