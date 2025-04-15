@@ -1,5 +1,5 @@
 //  export const BASE_URL = "https://backend-food-delivery-6sf5.onrender.com"
-export const BASE_URL = "http://localhost:8000";
+export const BASE_URL = process.env.BASE_URL;
 
 // export type FoodType = {
 //     foodName: {type: String,required: true },
