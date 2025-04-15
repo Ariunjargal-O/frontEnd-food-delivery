@@ -1,5 +1,5 @@
 "use client";
-import { AppSidebar } from "@/components/app-sidebar";
+import { AppSidebar } from "@/app/admin/components/app-sidebar"
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -96,3 +96,5 @@ export default function AdminLayout({
     </section>
   );
 }
+
+

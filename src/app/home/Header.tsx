@@ -2,22 +2,14 @@
 
 import { useMediaQuery } from "react-responsive";
 import {
-  CircleX,
   Clock,
-  Delete,
-  DeleteIcon,
-  icons,
-  LocateIcon,
-  LogIn,
   Map,
   MapPin,
   Minus,
   Plus,
-  ShoppingBag,
   ShoppingCart,
   Soup,
   User,
-  UserPlus,
   X,
 } from "lucide-react";
 import Link from "next/link";

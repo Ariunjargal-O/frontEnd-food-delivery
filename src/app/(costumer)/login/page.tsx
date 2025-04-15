@@ -73,6 +73,14 @@ export default function LoginPage() {
       else{
 router.push("/")
       }
+      
+//       if(decodeToken.user.role == "USER"){
+//         router.push("/home")
+//         return;
+//       }
+//       else{
+// router.push("/")
+//       }
     } catch(error:any) {
       console.log((error as Error).message);
     }
