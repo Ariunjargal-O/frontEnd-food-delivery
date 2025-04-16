@@ -113,7 +113,7 @@ export const LoginHeader = () => {
                       className="mb-4"
                     ></Textarea>
                     <div className="flex flex-row gap-3 justify-end">
-                    <DialogClose asChild>
+                      <DialogClose asChild>
                         <Button variant="outline">Cancel</Button>
                       </DialogClose>
                       <Button
@@ -409,7 +409,7 @@ export const LoginHeader = () => {
                       <DialogClose asChild>
                         <Button variant="outline">Cancel</Button>
                       </DialogClose>
-                    
+
                       <Button
                         variant="outline"
                         className="bg-black text-white dark:bg-white dark:text-black"
@@ -475,11 +475,17 @@ export const LoginHeader = () => {
 
                             <div className=" flex justify-between items-center">
                               <div className="flex gap-3 items-center">
-                                <Button className="w-8 h-8 rounded-4xl" variant="outline">
+                                <Button
+                                  className="w-8 h-8 rounded-4xl"
+                                  variant="outline"
+                                >
                                   <Minus />
                                 </Button>
                                 <p>1</p>
-                                <Button className="w-8 h-8 rounded-4xl" variant="outline">
+                                <Button
+                                  className="w-8 h-8 rounded-4xl"
+                                  variant="outline"
+                                >
                                   <Plus />
                                 </Button>
                               </div>
@@ -489,7 +495,6 @@ export const LoginHeader = () => {
                             </div>
                           </div>
                         </CardContent>
-                        
 
                         <Button
                           variant="outline"
@@ -506,7 +511,7 @@ export const LoginHeader = () => {
                             <div className="flex justify-between">
                               {" "}
                               <p className="text-gray-500">Items</p>
-                              <p >$12.99</p>
+                              <p>$12.99</p>
                             </div>
                             <div className="flex justify-between">
                               {" "}
@@ -579,11 +584,47 @@ export const LoginHeader = () => {
                   My@gmail.com
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem className="flex justify-center">
-                  <Link href="/">
-                    <Button className="">Sing out</Button>
-                  </Link>
+                <DropdownMenuItem className="hover:bg-red-100 mb-3">
+                  <Dialog>
+                    <DialogTrigger>Profile settings</DialogTrigger>
+                    <DialogContent>
+                      <DialogHeader>
+                        <DialogTitle>Please your information</DialogTitle>
+                        <div>
+                        <div>
+                          <p>First name</p>
+                          <input></input>
+                        </div>
+                        <div>
+                          <p>Last name</p>
+                          <input></input>
+                        </div>
+                        <div>
+                          <p>User name</p>
+                          <input></input>
+                        </div>
+                        <div>
+                          <p>Phone number</p>
+                          <input></input>
+                        </div>
+                        <div>
+                          <p>Address</p>
+                          <input></input>
+                        </div>
+                        <div>
+                          <p>email</p>
+                          <input></input>
+                        </div>
+                        </div>
+                      </DialogHeader>
+                    </DialogContent>
+                  </Dialog>
                 </DropdownMenuItem>
+                <Link href="/">
+                  <DropdownMenuItem className="flex justify-center hover:bg-red-500 bg-black text-white ">
+                    Sing out
+                  </DropdownMenuItem>{" "}
+                </Link>
               </DropdownMenuContent>
             </DropdownMenu>
             <DropdownMenu>

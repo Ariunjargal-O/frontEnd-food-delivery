@@ -1,6 +1,13 @@
 "use client";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ColumnDef } from "@tanstack/react-table";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -12,6 +19,24 @@ export type Payment = {
   totalprice: number;
   foodOrderStatus: "Pending" | "Delivered" | "Cancelled";
 };
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { ChevronDown } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 
 export const columns: ColumnDef<Payment>[] = [
   {
@@ -36,42 +61,111 @@ export const columns: ColumnDef<Payment>[] = [
     enableSorting: false,
     enableHiding: false,
   },
+  // {
+  //   accessorKey: "No.",
+  //   header: "No.",
+  //   cell: ({ row }) => {
+  //     console.log(row.getValue(""));
+  //     return <div className="capitalize">{row.getValue("")}</div>;
+  //   },
+  // },
   {
-    accessorKey: "No.",
-    header: "No.",
+    accessorKey: "Food",
+    header: "Costumer",
+    cell: ({ row }) => {
+      console.log(row.getValue("foodOrderItems"));
+      return <div className="capitalize">{row.getValue("foodOrderItems")}</div>;
+    },
   },
   {
     accessorKey: "foodOrderItems",
-    header: "Order item",
+    header: "Food",
     cell: ({ row }) => {
-      console.log(row.getValue('foodOrderItems'));
-      return <div className="capitalize">{row.getValue("foodOrderItems")}</div>;
+      console.log(row.getValue("foodOrderItems"));
+      return (
+        <div className="capitalize">
+          <DropdownMenu>
+            <DropdownMenuTrigger className="flex gap-3 items-center">
+              Foods <ChevronDown className="w-5 h-5 text-gray-400" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem className="flex gap-2">
+                <img></img>
+                {row.getValue("foodOrderItems")}
+                <p>x1</p>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+      );
     },
   },
 
   {
-    accessorKey: "Food",
-    header: "Food",
-  },
-
-  {
-    accessorKey: "Date",
+    accessorKey: "createdAt",
     header: "Date",
+    cell: ({ row }) => {
+      console.log(row.getValue("createdAt"));
+      return <div className="capitalize">{row.getValue("createdAt")}</div>;
+    },
   },
 
   {
-    accessorKey: "Total",
+    accessorKey: "totalprice",
     header: "Total",
+    cell: ({ row }) => {
+      console.log(row.getValue("foodOrderItems"));
+      return <div className="capitalize">${row.getValue("totalprice")}</div>;
+    },
   },
 
   {
-    accessorKey: "Delivery Address",
+    accessorKey: "deliveryAddress",
     header: "Delivery Address",
+    cell: ({ row }) => {
+      console.log(row.getValue("deliveryAddress"));
+      return (
+        <div className="capitalize">{row.getValue("deliveryAddress")}</div>
+      );
+    },
   },
 
   {
-    accessorKey: "Delivery state",
+    accessorKey: "foodOrderStatus",
     header: "Delivery state",
+    cell: ({ row }) => {
+      console.log(row.getValue("foodOrderItems"));
+      return (
+        <div className="capitalize">
+          <Select>
+            <SelectTrigger className="w-[100px] border rounded-2xl">
+              <SelectValue placeholder={row.getValue("foodOrderStatus")} />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="light">Pending</SelectItem>
+              <SelectItem value="light">Delivered</SelectItem>
+              <SelectItem value="light">Cancelled</SelectItem>
+            </SelectContent>
+            <Dialog>
+              <DialogTrigger>Pending</DialogTrigger>
+              <DialogContent className="w-[370px]">
+                <DialogHeader>
+                  <DialogTitle>Change delivery state</DialogTitle>
+                </DialogHeader>
+                <div className="flex flex-col">
+                 <div className="flex my-5 justify-between">
+                 <Button variant={"outline"}>Pending</Button>
+                  <Button variant={"outline"}>Delivered</Button>
+                  <Button variant={"outline"}>Cancelled</Button>
+                 </div>
+                 <Button>Save</Button>
+                </div>
+              </DialogContent>
+            </Dialog>
+          </Select>
+        </div>
+      );
+    },
   },
 ];
 

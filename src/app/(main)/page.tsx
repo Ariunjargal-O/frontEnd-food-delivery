@@ -9,7 +9,7 @@ import Server from "next/dist/server/base-server";
 export default function Home() {
   return (
     <div>
-      {/* <Offer/> */}
+      <Offer/>
       {/* <CategoriesList/>
       <CategoriesMenuCard/> */}
       <BodyList/>

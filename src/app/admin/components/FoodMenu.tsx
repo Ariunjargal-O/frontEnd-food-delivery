@@ -37,6 +37,10 @@ export type CateFoodType = {
   foods: FoodType[];
 };
 
+export type CateName = {
+  categoryName: string | any;
+};
+
 export type FoodType = {
   categoryId: string;
   foodName: string;
@@ -49,6 +53,7 @@ export type FoodType = {
 export const AdminFoodMenuSection = () => {
   const [category, setCategory] = useState([]);
   const [food, setFood] = useState([]);
+  const [text, setText] = useState("");
   useEffect(() => {
     const getdataCate = async () => {
       const res = await fetch(`${BASE_URL}/food-categories/with-foods`, {
@@ -64,7 +69,7 @@ export const AdminFoodMenuSection = () => {
     };
     getdataCate();
   }, []);
-
+  console.log(category);
   return (
     <div className="flex gap-5 flex-col mt-5">
       <Card className="p-6">
@@ -149,13 +154,13 @@ export const AdminFoodMenuSection = () => {
                               </p>
                             </DialogTitle>
                           </DialogHeader>
-                          <div className="flex gap-8">
+                          <div className="flex justify-between">
                             <div className="flex flex-col gap-3 ">
                               <p className="font-semibold leading-[14px] text-base">
                                 Food name
                               </p>
-                              <Input
-                                type=""
+                              <Input className="w-[220px]"
+                                type="text"
                                 placeholder="Type food name"
                               ></Input>
                             </div>
@@ -163,8 +168,8 @@ export const AdminFoodMenuSection = () => {
                               <p className="font-semibold leading-[14px] text-base">
                                 Food price
                               </p>
-                              <Input
-                                type=""
+                              <Input className="w-[220px]"
+                                type="text"
                                 placeholder="Enter price..."
                               ></Input>
                             </div>
@@ -226,7 +231,7 @@ export const AdminFoodMenuSection = () => {
                                     <Pencil />
                                   </Button>
                                 </DialogTrigger>
-                                <DialogContent className="[&_Textare]:w-[288px]">
+                                <DialogContent className="[&_Textarea]:w-[288px]">
                                   <DialogHeader>
                                     <DialogTitle className="pb-2">
                                       <p className="font-bold text-lg leading-7">
@@ -238,44 +243,71 @@ export const AdminFoodMenuSection = () => {
                                     <p className="font-normal text-sm leading-4 text-gray-400">
                                       Dish Name
                                     </p>{" "}
-                                    <Textarea> hoolnoo nre</Textarea>
+                                    <Textarea
+                                      value={foods.foodName}
+                                      onChange={(e) => setText(e.target.value)}
+                                    >
+                                      {" "}
+                                      hoolnoo nre
+                                    </Textarea>
                                   </div>
                                   <div className="flex justify-between">
                                     <p className="font-normal text-sm leading-4 text-gray-400">
                                       Dish category
                                     </p>
                                     <div>
-                                      <Select>
+                                      {/* <Select>
                                         <SelectTrigger className="w-[288px]">
-                                          <SelectValue placeholder="Choose food a category" />
+                                          <SelectValue
+                                            placeholder={category.categoryName}
+                                          />
                                         </SelectTrigger>
                                         <SelectContent>
-                                          <SelectItem value="categoryName">
-                                            {category.categoryName}
-                                          </SelectItem>
+                                          {category.map((cat: CateFoodType) => (
+                                            <SelectItem
+                                              key={cat._id}
+                                              value={cat.categoryName}
+                                            >
+                                              {cat.categoryName}
+                                            </SelectItem>
+                                          ))}
                                         </SelectContent>
-                                      </Select>
+                                      </Select> */}
                                     </div>
                                   </div>
                                   <div className="flex justify-between">
                                     <p className="font-normal text-sm leading-4 text-gray-400">
                                       Ingredients
                                     </p>{" "}
-                                    <Textarea>hoolnii orst</Textarea>
+                                    <Textarea
+                                      value={foods.ingredients}
+                                      onChange={(e) => setText(e.target.value)}
+                                    >
+                                      hoolnii orst
+                                    </Textarea>
                                   </div>
                                   <div className="flex justify-between">
                                     <p className="font-normal text-sm leading-4 text-gray-400">
                                       Price
                                     </p>{" "}
-                                    <Textarea>une</Textarea>
+                                    <Textarea
+                                      value={foods.price}
+                                      onChange={(e) => setText(e.target.value)}
+                                    >
+                                      une
+                                    </Textarea>
                                   </div>
                                   <div className="flex justify-between">
                                     <p className="font-normal text-sm leading-4 text-gray-400">
                                       Image
                                     </p>{" "}
-                                    <Image alt="foodimage" src='' className="h-[160px]">
-                                      hollnizurg
-                                    </Image>
+                                    <Image
+                                      alt="foodimage"
+                                      src={foods.image}
+                                      width={210}
+                                      height={160}
+                                      className="h-[160px]"
+                                    ></Image>
                                   </div>
                                   <div className="flex justify-between">
                                     <Button
