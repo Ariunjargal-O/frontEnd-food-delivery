@@ -35,10 +35,7 @@ export type UserType = {
   address: string;
 };
 export type DecodedTokenType = {
-user:{  email: string;
-  password: string;
-  role: string;
-  _id: string;}
+  user: { email: string; password: string; role: string; _id: string };
 };
 
 export default function LoginPage() {
@@ -48,7 +45,9 @@ export default function LoginPage() {
     setIsMobile(isMobileQuery);
   }, [isMobileQuery]);
 
-  const router = useRouter()
+
+  
+  const router = useRouter();
   const onSubmit = async (val: z.infer<typeof formSchema>) => {
     // console.log(val);
     try {
@@ -66,22 +65,13 @@ export default function LoginPage() {
 
       const decodeToken: DecodedTokenType = jwtDecode(token);
       console.log(decodeToken);
-      if(decodeToken.user.role == "ADMIN"){
-        router.push("/admin")
+      if (decodeToken.user.role == "ADMIN") {
+        router.push("/admin");
         return;
+      } else {
+        router.push("/");
       }
-      else{
-router.push("/")
-      }
-      
-//       if(decodeToken.user.role == "USER"){
-//         router.push("/home")
-//         return;
-//       }
-//       else{
-// router.push("/")
-//       }
-    } catch(error:any) {
+    } catch (error: any) {
       console.log((error as Error).message);
     }
   };

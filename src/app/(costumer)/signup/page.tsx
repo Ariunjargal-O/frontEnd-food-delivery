@@ -33,7 +33,8 @@ export default function SingupPage() {
 
   const createUser = async (val: z.infer<typeof formSchema>) => {
     // console.log(val);
-
+    console.log(BASE_URL);
+    
     const response = await fetch(`${BASE_URL}/users/register`, {
       method: "POST",
       body: JSON.stringify(val),

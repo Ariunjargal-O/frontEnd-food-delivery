@@ -6,13 +6,10 @@ import { headers } from "next/headers";
 import { BodyList } from "@/components/BodyList";
 import Server from "next/dist/server/base-server";
 
-
-export default async function Home() {
-
-
+export default function Home() {
   return (
     <div>
-      <Offer/>
+      {/* <Offer/> */}
       {/* <CategoriesList/>
       <CategoriesMenuCard/> */}
       <BodyList/>

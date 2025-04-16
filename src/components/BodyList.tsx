@@ -31,6 +31,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Badge } from "./ui/badge";
+import Image from "next/image";
 
 export type CategoryType = {
   categoryName: string;
@@ -95,7 +96,7 @@ export const BodyList = async () => {
     },
   });
   const foods = await dataFood.json();
-    console.log(foods.categories);
+  console.log(foods.categories);
   const foodList = foods.categories;
   // console.log(foodList)
   return (
@@ -140,10 +141,11 @@ export const BodyList = async () => {
                     {catefood.foods.map((food: FoodType) => {
                       return (
                         <div key={food._id}>
-                          <Card className="w-fit h-fit">
+                          <Card className="w-[400px] h-[350px]">
                             <CardContent className="w-fit relative">
                               <img
-                                className="w-[365px] h-[210px] rounded-2xl ralative"
+                                alt="foodimage"
+                                className=" rounded-2xl ralative w-[350px] h-[210px]"
                                 src={food.image}
                               />
                               <Dialog>
@@ -155,11 +157,14 @@ export const BodyList = async () => {
                                     <Plus />
                                   </Button>
                                 </DialogTrigger>
-                                <DialogContent className="">
+                                <DialogContent className=" h-[300px] box-content">
                                   <DialogTitle className="flex p-0 gap-4">
-                                    <img
-                                      className="w-[377px] h-[234px] rounded-2xl ralative"
+                                    <Image
+                                      alt="foodimage"
+                                      width={300}
+                                      height={350}
                                       src={food.image}
+                                      className="rounded-2xl"
                                     />
                                     <div className="flex flex-col justify-between">
                                       <DialogHeader>
@@ -173,13 +178,13 @@ export const BodyList = async () => {
                                       </DialogHeader>
 
                                       <div className="flex flex-col gap-2">
-                                        <div className="flex justify-between">
+                                        <div className="flex justify-between gap-7">
                                           <div className="flex flex-col">
                                             <p className="text-sm leading-3">
                                               Total Price
                                             </p>
                                             <p className="font-semibold text-lg leading-7">
-                                              $12.99
+                                              ＄{food.price}
                                             </p>
                                           </div>
 

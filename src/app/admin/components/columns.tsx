@@ -1,5 +1,5 @@
 "use client";
-
+import { Checkbox } from "@/components/ui/checkbox";
 import { ColumnDef } from "@tanstack/react-table";
 
 // This type is used to define the shape of our data.
@@ -7,24 +7,46 @@ import { ColumnDef } from "@tanstack/react-table";
 export type Payment = {
   id: string;
   no: number;
-  user:string[];
+  user: string[];
   foodOrderItems: string[];
   totalprice: number;
   foodOrderStatus: "Pending" | "Delivered" | "Cancelled";
 };
 
 export const columns: ColumnDef<Payment>[] = [
-  // {
-  //   accessorKey: "Select",
-  //   header: <input type="checkbox"></input>,
-  // },
+  {
+    accessorKey: "Select",
+    header: ({ table }) => (
+      <Checkbox
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && "indeterminate")
+        }
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
   {
     accessorKey: "No.",
     header: "No.",
   },
   {
-    accessorKey: "email",
-    header: "Costumer",
+    accessorKey: "foodOrderItems",
+    header: "Order item",
+    cell: ({ row }) => {
+      console.log(row.getValue('foodOrderItems'));
+      return <div className="capitalize">{row.getValue("foodOrderItems")}</div>;
+    },
   },
 
   {
@@ -52,7 +74,6 @@ export const columns: ColumnDef<Payment>[] = [
     header: "Delivery state",
   },
 ];
-
 
 // "use client"
 

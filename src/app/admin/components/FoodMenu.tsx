@@ -226,7 +226,7 @@ export const AdminFoodMenuSection = () => {
                                     <Pencil />
                                   </Button>
                                 </DialogTrigger>
-                                <DialogContent className="[&_input]:w-[288px]">
+                                <DialogContent className="[&_Textare]:w-[288px]">
                                   <DialogHeader>
                                     <DialogTitle className="pb-2">
                                       <p className="font-bold text-lg leading-7">
@@ -238,10 +238,7 @@ export const AdminFoodMenuSection = () => {
                                     <p className="font-normal text-sm leading-4 text-gray-400">
                                       Dish Name
                                     </p>{" "}
-                                    <Input
-                                      type="text"
-                                      value={foods.foodName}
-                                    ></Input>
+                                    <Textarea> hoolnoo nre</Textarea>
                                   </div>
                                   <div className="flex justify-between">
                                     <p className="font-normal text-sm leading-4 text-gray-400">
@@ -264,30 +261,21 @@ export const AdminFoodMenuSection = () => {
                                     <p className="font-normal text-sm leading-4 text-gray-400">
                                       Ingredients
                                     </p>{" "}
-                                    <Input
-                                      type="text"
-                                      className="h-fit"
-                                      value={foods.ingredients}
-                                    ></Input>
+                                    <Textarea>hoolnii orst</Textarea>
                                   </div>
                                   <div className="flex justify-between">
                                     <p className="font-normal text-sm leading-4 text-gray-400">
                                       Price
                                     </p>{" "}
-                                    <Input
-                                      type="text"
-                                      value={foods.price}
-                                    ></Input>
+                                    <Textarea>une</Textarea>
                                   </div>
                                   <div className="flex justify-between">
                                     <p className="font-normal text-sm leading-4 text-gray-400">
                                       Image
                                     </p>{" "}
-                                    <Input
-                                      className="h-[160px]"
-                                      type="file"
-                                      // value={foods.image}
-                                    ></Input>
+                                    <Image alt="foodimage" src='' className="h-[160px]">
+                                      hollnizurg
+                                    </Image>
                                   </div>
                                   <div className="flex justify-between">
                                     <Button

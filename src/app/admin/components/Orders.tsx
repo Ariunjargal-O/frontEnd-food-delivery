@@ -14,6 +14,8 @@ import { DataTable } from "./data-table";
 import { useEffect, useState } from "react";
 import { BASE_URL } from "@/constnants";
 
+export type OrderType = {};
+
 export const AdminOrderSec = () => {
   const [order, setOrder] = useState([]);
   useEffect(() => {
@@ -22,14 +24,18 @@ export const AdminOrderSec = () => {
         headers: { "Content-Type": "application/json" },
       });
       const dataFoodOrder = await res.json();
+
+      console.log(dataFoodOrder.categories);
+
       setOrder(dataFoodOrder.categories);
       console.log(dataFoodOrder);
     };
     data();
   }, []);
+
   return (
     <div>
-      <div className="container mx-auto py-10">
+      <div className="container py-10">
         <DataTable columns={columns} data={order} />
       </div>
 
