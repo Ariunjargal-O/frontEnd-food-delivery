@@ -46,9 +46,9 @@ export const Offer = () => {
       )}
 
       {!isMobile && (
-        <div>
+        <div className="">
           <Carousel
-            className="w-full bg-cover"
+            className="w-full h-auto"
             opts={{ loop: true }}
             plugins={[
               Autoplay({

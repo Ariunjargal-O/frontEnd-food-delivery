@@ -22,18 +22,18 @@ import { Button } from "@/components/ui/button";
 export default function AdminPage() {
   const [activePage, setActivePage] = useState("FoodMenu");
 
-  // const renderPage = () => {
-  //   switch (activePage) {
-  //     case "FoodMenu":
-  //       return <AdminFoodMenuSection />;
-  //     case "Orders":
-  //       return <AdminOrderSec />;
-  //     case "Settings":
-  //       return <AdminSettings />;
-  //     default:
-  //       return <AdminFoodMenuSection />;
-  //   }
-  // };
+  const renderPage = () => {
+    switch (activePage) {
+      case "FoodMenu":
+        return <AdminFoodMenuSection />;
+      case "Orders":
+        return <AdminOrderSec />;
+      case "Settings":
+        return <AdminSettings />;
+      default:
+        return <AdminFoodMenuSection />;
+    }
+  };
 
   return (
     <div className="p-6">
@@ -61,10 +61,15 @@ export default function AdminPage() {
       </DropdownMenu>
 
       <div className="flex">
-        <main className="w-full">
-          <AdminOrderSec/>
-          <AdminFoodMenuSection/>
-        </main>
+        <SidebarProvider>
+          <div>
+            <AppSidebar onNavigate={setActivePage}></AppSidebar>
+            <main className="w-full">{renderPage()}</main>
+          </div>
+        </SidebarProvider>
+
+        {/* <AdminOrderSec/>
+          <AdminFoodMenuSection/> */}
       </div>
     </div>
   );

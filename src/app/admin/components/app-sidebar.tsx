@@ -1,5 +1,5 @@
 import * as React from "react";
-import { GalleryVerticalEnd, LayoutList, Settings, Truck } from "lucide-react";
+import { GalleryVerticalEnd, LayoutDashboard, LayoutList, Settings, Truck } from "lucide-react";
 
 import {
   Sidebar,
@@ -20,7 +20,7 @@ const data = {
   navMain: [
     {
       title: "Food menu",
-      icon: <LayoutList />,
+      icon: <LayoutDashboard />,
     },
     {
       title: "Orders",
@@ -33,7 +33,27 @@ const data = {
   ],
 };
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+
+
+interface NavItem {
+  title: string;
+  icon: React.ReactNode;
+}
+
+
+// export function AppSidebar({ ...props}: React.ComponentProps<typeof Sidebar>, onNavigate) {
+// interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
+//   onNavigate: (title: string) => void;
+// }
+
+type AppSidebarProps = {
+  onNavigate: (page: string) => void;
+  // activePage: string;
+};
+ 
+ 
+
+export function AppSidebar({ ...props }: AppSidebarProps) {
   return (
     <Sidebar {...props}>
       <SidebarHeader>
@@ -61,15 +81,20 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarContent>
         <SidebarGroup>
           <SidebarMenu className="gap-7 ">
-            {data.navMain.map((item) => (
+            {data.navMain.map((item: NavItem) => (
               <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton
+                <SidebarMenuButton onClick={() => {
+                        props.onNavigate(item.title);
+                      }}
                   asChild
                   className=" hover:bg-red-100 px-4 py-5"
                 >
                   <div className="gap-3">
                     <p className="font-bold leading-5 text-2xl ">{item.icon}</p>
-                    <p className="font-bold leading-5 text-2xl ">
+                    <p
+                      className="font-bold leading-5 text-2xl cursor-pointer"
+                     
+                    >
                       {item.title}
                     </p>
                   </div>

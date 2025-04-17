@@ -1,5 +1,5 @@
 "use client";
-import { AppSidebar } from "@/app/admin/components/app-sidebar"
+import { AppSidebar } from "@/app/admin/components/app-sidebar";
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -20,7 +20,6 @@ import { useRouter } from "next/navigation";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 
-
 export type DecodedTokenType = {
   user: {
     email: string;
@@ -29,6 +28,12 @@ export type DecodedTokenType = {
     _id: string;
     token: string;
   };
+};
+
+export type AppSidebarProps = {
+  onNavigate: () => void;
+
+  activePage?: string; // Add activePage as an optional property
 };
 
 export default function AdminLayout({
@@ -42,9 +47,12 @@ export default function AdminLayout({
     setIsMobile(isMobileQuery);
   }, [isMobileQuery]);
 
+  function setActivePage(title: string): void {
+    console.log(`Navigating to page: ${title}`);
+    // Additional logic to handle active page state can be added here
+  }
   return (
     <section>
-      
       {isMobile && (
         <div>
           <SidebarProvider
@@ -54,7 +62,7 @@ export default function AdminLayout({
               } as React.CSSProperties
             }
           >
-            <AppSidebar   />
+            <AppSidebar onNavigate={setActivePage} />
             <SidebarInset>
               <header className="flex h-16 shrink-0 items-center gap-2 px-4">
                 <SidebarTrigger className="-ml-1" />
@@ -65,10 +73,7 @@ export default function AdminLayout({
                   </BreadcrumbList>
                 </Breadcrumb>
               </header>
-              <main>
-             
-                {children}
-              </main>
+              <main>{children}</main>
             </SidebarInset>
           </SidebarProvider>
         </div>
@@ -82,13 +87,10 @@ export default function AdminLayout({
               } as React.CSSProperties
             }
           >
-            <AppSidebar  />
+            <AppSidebar onNavigate={() => {}} />
             <SidebarInset>
               {" "}
-              <main>
-             
-                {children}
-              </main>
+              <main>{children}</main>
             </SidebarInset>
           </SidebarProvider>
         </div>
@@ -96,5 +98,3 @@ export default function AdminLayout({
     </section>
   );
 }
-
-

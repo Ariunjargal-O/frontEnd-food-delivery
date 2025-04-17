@@ -41,41 +41,14 @@ export type DecodedTokenType = {
 export default function LoginPage() {
   const isMobileQuery = useMediaQuery({ maxWidth: 639 });
   const [isMobile, setIsMobile] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
   useEffect(() => {
     setIsMobile(isMobileQuery);
   }, [isMobileQuery]);
 
-
-  
   const router = useRouter();
-  const onSubmit = async (val: z.infer<typeof formSchema>) => {
-    // console.log(val);
-    try {
-      const response = await fetch(`${BASE_URL}/users/login`, {
-        method: "POST",
-        body: JSON.stringify(val),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const { token } = await response.json();
-      console.log(token);
-
-      localStorage.setItem("token", token);
-
-      const decodeToken: DecodedTokenType = jwtDecode(token);
-      console.log(decodeToken);
-      if (decodeToken.user.role == "ADMIN") {
-        router.push("/admin");
-        return;
-      } else {
-        router.push("/");
-      }
-    } catch (error: any) {
-      console.log((error as Error).message);
-    }
-  };
-
+  
   const formSchema = z.object({
     email: z
       .string()
@@ -92,6 +65,46 @@ export default function LoginPage() {
       password: "",
     },
   });
+
+  const onSubmit = async (val: z.infer<typeof formSchema>) => {
+    setIsSubmitting(true);
+    try {
+      const response = await fetch(`${BASE_URL}/users/login`, {
+        method: "POST",
+        body: JSON.stringify(val),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      
+      if (!response.ok) {
+        throw new Error("Login failed");
+      }
+      
+      const data = await response.json();
+      
+      if (!data.token) {
+        toast.error("Login failed. No token received.");
+        return;
+      }
+      
+      localStorage.setItem("token", data.token);
+      toast.success("Login successful!");
+
+      const decodeToken: DecodedTokenType = jwtDecode(data.token);
+      
+      if (decodeToken.user.role === "ADMIN") {
+        router.push("/admin");
+      } else {
+        router.push("/");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      toast.error("Login failed. Please check your credentials.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   // const router = useRouter();
   // const onSubmit = async (val: z.infer<typeof formSchema>) => {
@@ -338,24 +351,4 @@ export default function LoginPage() {
   );
 }
 
-/* <Form {...form}>
-        <form onSubmit={form.handleSubmit()} className="space-y-8">
-          <FormField
-            control={form.control}
-            username="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Username</FormLabel>
-                <FormControl>
-                  <Input placeholder="shadcn" {...field} />
-                </FormControl>
-                <FormDescription>
-                  This is your public display name.
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button type="submit">Submit</Button>
-        </form>
-      </Form> */
+

@@ -141,27 +141,21 @@ export const columns: ColumnDef<Payment>[] = [
             <SelectTrigger className="w-[100px] border rounded-2xl">
               <SelectValue placeholder={row.getValue("foodOrderStatus")} />
             </SelectTrigger>
+            {/* {(row.getValue("foodOrderStatus") as string[]).map((status) => (
+             <SelectContent>
+               <SelectItem key={status} value={status}>
+               <SelectItem value="light">Pending</SelectItem>
+              <SelectItem value="light">Delivered</SelectItem>
+              <SelectItem value="light">Cancelled</SelectItem>
+              </SelectItem>
+             </SelectContent>
+            ))} */}
             <SelectContent>
               <SelectItem value="light">Pending</SelectItem>
               <SelectItem value="light">Delivered</SelectItem>
               <SelectItem value="light">Cancelled</SelectItem>
             </SelectContent>
-            <Dialog>
-              <DialogTrigger>Pending</DialogTrigger>
-              <DialogContent className="w-[370px]">
-                <DialogHeader>
-                  <DialogTitle>Change delivery state</DialogTitle>
-                </DialogHeader>
-                <div className="flex flex-col">
-                 <div className="flex my-5 justify-between">
-                 <Button variant={"outline"}>Pending</Button>
-                  <Button variant={"outline"}>Delivered</Button>
-                  <Button variant={"outline"}>Cancelled</Button>
-                 </div>
-                 <Button>Save</Button>
-                </div>
-              </DialogContent>
-            </Dialog>
+           
           </Select>
         </div>
       );
