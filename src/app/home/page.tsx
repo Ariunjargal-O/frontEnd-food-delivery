@@ -12,9 +12,8 @@ export default function LoginHomePage () {
         <div>
             <LoginHeader/>
             <Offer/>
-            <BodyList/>
-            {/* <CategoriesList/>
-            <CategoriesMenuCard/> */}
+            <CategoriesList/> 
+            <CategoriesMenuCard/> 
             <Footer/>
         </div>
     )

@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { useState, useEffect } from "react";
@@ -9,23 +8,29 @@ import { useMediaQuery } from "react-responsive";
 import { Button } from "./ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { BASE_URL } from "@/constnants";
+import { CategoryType} from "./BodyList";
 
-export const CategoriesList = async () => {
-//   const data = await fetch(`${BASE_URL}/food-categories`, {
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//   });
-
-  // console.log(data);
-
-
-
+export const CategoriesList = () => {
   const isMobileQuery = useMediaQuery({ maxWidth: 639 });
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
     setIsMobile(isMobileQuery);
   }, [isMobileQuery]);
+
+  const [category, setCategory] = useState<CategoryType[]>([]);
+  useEffect(() => {
+    const fetchdata = async () => {
+      const dataCate = await fetch(`${BASE_URL}/food-categories`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const category = await dataCate.json();
+      setCategory(category);
+      // console.log(category);
+    };
+    fetchdata();
+  }, []);
 
   return (
     <div>
@@ -40,22 +45,18 @@ export const CategoriesList = async () => {
                 <ChevronLeft />
               </Button>
               <div className="flex overflow-scroll gap-2">
-                <Link href={`#`}>
-                  <Badge
-                    className="text-sm font-normal hover:bg-red-500 rounded-2xl "
-                    variant="outline"
-                  >
-                    Badge
-                  </Badge>
-                </Link>
-                <Link href={`#`}>
-                  <Badge
-                    className="text-sm font-normal hover:bg-red-500 rounded-2xl "
-                    variant="outline"
-                  >
-                    Badge
-                  </Badge>
-                </Link>
+                {category.map((category: CategoryType) => {
+                  return (
+                    <div key={category._id}>
+                      <Badge
+                        className="text-sm font-normal hover:bg-red-500 rounded-2xl "
+                        variant="outline"
+                      >
+                        {category.categoryName}
+                      </Badge>
+                    </div>
+                  );
+                })}
               </div>
               <Button className="w-8 h-4" variant={"outline"}>
                 <ChevronRight />
@@ -75,31 +76,18 @@ export const CategoriesList = async () => {
               <ChevronLeft />
             </Button>
             <div className="flex gap-3 overflow-scroll">
-              {" "}
-              <Link href={`#`}>
-                <Badge
-                  className="text-base font-normal hover:bg-red-500 rounded-2xl"
-                  variant="outline"
-                >
-                  Badge
-                </Badge>
-              </Link>
-              <Link href={`#`}>
-                <Badge
-                  className="text-base font-normal hover:bg-red-500 rounded-2xl"
-                  variant="outline"
-                >
-                  Badge
-                </Badge>
-              </Link>
-              <Link href={`#`}>
-                <Badge
-                  className="text-base font-normal hover:bg-red-500 rounded-2xl"
-                  variant="outline"
-                >
-                  Badge
-                </Badge>
-              </Link>
+              {category.map((category: CategoryType) => {
+                return (
+                  <div key={category._id}>
+                    <Badge
+                      className="text-base font-normal hover:bg-red-500 rounded-2xl"
+                      variant="outline"
+                    >
+                      {category.categoryName}
+                    </Badge>
+                  </div>
+                );
+              })}
             </div>
             <Button className="w-8 h-4" variant={"outline"}>
               <ChevronRight />

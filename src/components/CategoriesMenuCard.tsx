@@ -30,6 +30,11 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
+import { BASE_URL } from "@/constnants";
+import { CategoryType, FoodType } from "@/constnants/Type";
+import Image from "next/image";
+import { DialogContentComp } from "./DialogContentComp";
+
 export const CategoriesMenuCard = () => {
   const isMobileQuery = useMediaQuery({ maxWidth: 639 });
   const [isMobile, setIsMobile] = useState(false);
@@ -37,92 +42,81 @@ export const CategoriesMenuCard = () => {
     setIsMobile(isMobileQuery);
   }, [isMobileQuery]);
 
+  const [category, setCategory] = useState<CategoryType[]>([]);
+  useEffect(() => {
+    const fetchdata = async () => {
+      const dataCate = await fetch(`${BASE_URL}/food-categories/with-foods`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const category = await dataCate.json();
+      setCategory(category.categories);
+      // console.log(category)
+    };
+    fetchdata();
+  }, []);
+
   return (
     <div>
       {isMobile && (
         <div className="">
           <div className="p-(--spacing-5)">
-            <h2 className="font-bold text-2xl mb-(--spacing-8)">Appetizers</h2>
-            <div className="flex gap-4">
-              <div className="p-1">
-                <Card>
-                  <CardContent className="relative">
-                    <img src="/Product-Image.png" />
-                    <Dialog>
-                      <DialogTrigger asChild>
-                        <Button
-                          variant="outline"
-                          className="absolute z-10 right-10 bottom-4 rounded-2xl"
-                        >
-                          <Plus />
-                        </Button>
-                      </DialogTrigger>
-                      <DialogContent className="">
-                        <img
-                          className="w-[377px] h-[234px] rounded-2xl ralative"
-                          src="/Product-Image2.png"
-                        />
+            {category.map((catefood: CategoryType) => {
+              return (
+                <div key={catefood._id}>
+                  <h2 className="font-bold text-2xl my-(--spacing-4)">
+                    {catefood.categoryName}
+                  </h2>
+                  <div className="flex flex-wrap overflow-scroll gap-3">
+                    {catefood.foods.map((food: FoodType, index) => {
+                      return (
+                        <Card className="" key={food._id}>
+                          <CardContent className="w-fit relative">
+                            <img
+                              alt="foodimage"
+                              className=" rounded-2xl ralative w-[350px] h-[210px]"
+                              src={food.image}
+                            />
+                            <Dialog>
+                              <DialogTrigger asChild>
+                                <Button
+                                  variant="outline"
+                                  className="absolute z-10 right-10 bottom-4 rounded-2xl"
+                                >
+                                  <Plus />
+                                </Button>
+                              </DialogTrigger>
+                            </Dialog>
+                            <DialogContentComp
+                              image={food.image}
+                              name={food.foodName}
+                              price={food.price}
+                              ingredients={food.ingredients}
+                            />
+                            
+                          </CardContent>
+                          <CardHeader>
+                            <CardTitle className="flex justify-between">
+                              <h3 className="font-semibold text-2xl text-red-500 leading-8">
+                                {food.foodName}
+                              </h3>
+                              <p className="font-semibold text-lg leading-7">
+                                ${food.price}
+                              </p>
+                            </CardTitle>
 
-                        <div className="flex flex-col justify-between">
-                          <DialogHeader className=" mb-4">
-                            <DialogTitle className="text-start font-semibold text-2xl text-red-500 leading-8">
-                              Finger food
-                            </DialogTitle>
-                            <DialogDescription className=" text-start text-sm laeding-5 font-normal">
-                              Fluffy pancakes stacked with fruits, cream, syrup,
-                              and powdered sugar.
-                            </DialogDescription>
-                          </DialogHeader>
-
-                          <DialogFooter className="flex flex-col gap-2">
-                            <div className="flex justify-between">
-                              <div className="flex flex-col">
-                                <p className="text-sm leading-3">Total Price</p>
-                                <p className="font-semibold text-lg leading-7">
-                                  $12.99
-                                </p>
-                              </div>
-
-                              <div className=" flex justify-between items-center">
-                                <div className="flex gap-3 items-center">
-                                  <Button
-                                    className="w-8 h-8 rounded-4xl"
-                                    variant="outline"
-                                  >
-                                    <Minus />
-                                  </Button>
-                                  <p>1</p>
-                                  <Button
-                                    className="w-8 h-8 rounded-4xl"
-                                    variant="outline"
-                                  >
-                                    <Plus />
-                                  </Button>
-                                </div>
-                              </div>
-                            </div>
-
-                            <Button>Add Cart</Button>
-                          </DialogFooter>
-                        </div>
-                      </DialogContent>
-                    </Dialog>
-                  </CardContent>
-                  <CardHeader>
-                    <CardTitle className="flex justify-between">
-                      <h3 className="font-semibold text-xl text-red-500 leading-8">
-                        Finger food
-                      </h3>
-                      <p className="font-semibold text-lg leading-7">$12.99</p>
-                    </CardTitle>
-                    <CardDescription className="text-sm laeding-5 font-normal">
-                      Fluffy pancakes stacked with fruits, cream, syrup, and
-                      powdered sugar.
-                    </CardDescription>
-                  </CardHeader>
-                </Card>
-              </div>
-            </div>
+                            <CardDescription className="text-sm laeding-5 font-normal">
+                              {food.ingredients}
+                            </CardDescription>
+                          </CardHeader>
+                        </Card>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       )}
@@ -130,174 +124,62 @@ export const CategoriesMenuCard = () => {
       {!isMobile && (
         <div>
           <div className="p-(--spacing-5)">
-            <h2 className="font-bold text-3xl mb-(--spacing-12)">Appetizers</h2>
-            <div className="flex gap-9">
-              <Card className="w-fit h-fit">
-                <CardContent className="w-fit relative">
-                  <img
-                    className="w-[365px] h-[210px] rounded-2xl ralative"
-                    src="/Product-Image.png"
-                  />
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button
-                        variant="outline"
-                        className="absolute z-10 right-10 bottom-4 rounded-2xl"
-                      >
-                        <Plus />
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent className="">
-                      <DialogTitle className="flex p-0 gap-4">
-                        <img
-                          className="w-[377px] h-[234px] rounded-2xl ralative"
-                          src="/Product-Image.png"
-                        />
-                        <div className="flex flex-col justify-between">
-                          <DialogHeader>
-                            {" "}
-                            <DialogTitle className="font-semibold text-2xl text-red-500 leading-8">
-                              Finger food
-                            </DialogTitle>
-                            <DialogDescription className="text-sm laeding-5 font-normal">
-                              Fluffy pancakes stacked with fruits, cream, syrup,
-                              and powdered sugar.
-                            </DialogDescription>
-                          </DialogHeader>
-
-                          <div className="flex flex-col gap-2">
-                            <div className="flex justify-between">
-                              <div className="flex flex-col">
-                                <p className="text-sm leading-3">Total Price</p>
-                                <p className="font-semibold text-lg leading-7">
-                                  $12.99
-                                </p>
-                              </div>
-
-                              <div className=" flex justify-between items-center">
-                                <div className="flex gap-3 items-center">
+            {category.map((catefood: CategoryType) => {
+              return (
+                <div key={catefood._id}>
+                  <h2 className="font-bold text-3xl mb-(--spacing-5) mt-(--spacing-6)">
+                    {catefood.categoryName}
+                  </h2>
+                  <div className="flex gap-9">
+                    {catefood.foods.map((food: FoodType, index) => {
+                      return (
+                        <div key={food._id}>
+                          <Card className="w-[400px] h-[350px]">
+                            <CardContent className="w-fit relative">
+                              <img
+                                alt="foodimage"
+                                className=" rounded-2xl ralative w-[350px] h-[210px]"
+                                src={food.image}
+                              />
+                              <Dialog>
+                                <DialogTrigger asChild>
                                   <Button
-                                    className="w-8 h-8 rounded-4xl"
                                     variant="outline"
-                                  >
-                                    <Minus />
-                                  </Button>
-                                  <p>1</p>
-                                  <Button
-                                    className="w-8 h-8 rounded-4xl"
-                                    variant="outline"
+                                    className="absolute z-10 right-10 bottom-4 rounded-full"
                                   >
                                     <Plus />
                                   </Button>
-                                </div>
-                              </div>
-                            </div>
-
-                            <Button>Add Cart</Button>
-                          </div>
-                        </div>
-                      </DialogTitle>
-                    </DialogContent>
-                  </Dialog>
-                </CardContent>
-                <CardHeader>
-                  <CardTitle className="flex justify-between">
-                    <h3 className="font-semibold text-2xl text-red-500 leading-8">
-                      Finger food
-                    </h3>
-                    <p className="font-semibold text-lg leading-7">$12.99</p>
-                  </CardTitle>
-
-                  <CardDescription className="text-sm laeding-5 font-normal">
-                    Fluffy pancakes stacked with fruits, cream, syrup, and
-                    powdered sugar.
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-              <Card className="w-fit">
-                <CardContent className="w-fit relative">
-                  <img
-                    className="w-[365px] h-[210px] rounded-2xl ralative"
-                    src="/Product-Image2.png"
-                  />
-
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button
-                        variant="outline"
-                        className="absolute z-10 right-10 bottom-4 rounded-2xl"
-                      >
-                        <Plus />
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent className="">
-                      <DialogTitle className="flex p-0 gap-4">
-                        <img
-                          className="w-[377px] h-[234px] rounded-2xl ralative"
-                          src="/Product-Image2.png"
-                        />
-                        <div className="flex flex-col justify-between">
-                          <DialogHeader>
-                            {" "}
-                            <DialogTitle className="font-semibold text-2xl text-red-500 leading-8">
-                              Finger food
-                            </DialogTitle>
-                            <DialogDescription className="text-sm laeding-5 font-normal">
-                              Fluffy pancakes stacked with fruits, cream, syrup,
-                              and powdered sugar.
-                            </DialogDescription>
-                          </DialogHeader>
-
-                          <div className="flex flex-col gap-2">
-                            <div className="flex justify-between">
-                              <div className="flex flex-col">
-                                <p className="text-sm leading-3">Total Price</p>
+                                </DialogTrigger>
+                                <DialogContentComp 
+                                  image={food.image} 
+                                  name={food.foodName} 
+                                  price={food.price} 
+                                  ingredients={food.ingredients} 
+                                />
+                              </Dialog>
+                            </CardContent>
+                            <CardHeader>
+                              <CardTitle className="flex justify-between">
+                                <h3 className="font-semibold text-2xl text-red-500 leading-8">
+                                  {food.foodName}
+                                </h3>
                                 <p className="font-semibold text-lg leading-7">
-                                  $12.99
+                                  ${food.price}
                                 </p>
-                              </div>
+                              </CardTitle>
 
-                              <div className=" flex justify-between items-center">
-                                <div className="flex gap-3 items-center">
-                                  <Button
-                                    className="w-8 h-8 rounded-4xl"
-                                    variant="outline"
-                                  >
-                                    <Minus />
-                                  </Button>
-                                  <p>1</p>
-                                  <Button
-                                    className="w-8 h-8 rounded-4xl"
-                                    variant="outline"
-                                  >
-                                    <Plus />
-                                  </Button>
-                                </div>
-                              </div>
-                            </div>
-
-                            <Button>Add Cart</Button>
-                          </div>
+                              <CardDescription className="text-sm laeding-5 font-normal">
+                                {food.ingredients}
+                              </CardDescription>
+                            </CardHeader>
+                          </Card>
                         </div>
-                      </DialogTitle>
-                    </DialogContent>
-                  </Dialog>
-                </CardContent>
-                <CardHeader>
-                  <CardTitle className="flex justify-between">
-                    <h3 className="font-semibold text-2xl text-red-500 leading-8">
-                      Finger food
-                    </h3>
-                    <p className="font-semibold text-lg leading-7">$12.99</p>
-                  </CardTitle>
-
-                  <CardDescription className="text-sm laeding-5 font-normal">
-                    Fluffy pancakes stacked with fruits, cream, syrup, and
-                    powdered sugar.
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       )}

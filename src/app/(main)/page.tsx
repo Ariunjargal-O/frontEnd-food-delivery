@@ -10,9 +10,9 @@ export default function Home() {
   return (
     <div>
       <Offer/>
-      {/* <CategoriesList/>
-      <CategoriesMenuCard/> */}
-      <BodyList/>
+     <CategoriesList/> 
+      <CategoriesMenuCard/> 
+      {/* <BodyList/> */}
     </div>
   );
 }

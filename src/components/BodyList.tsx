@@ -1,3 +1,4 @@
+"use client";
 import { ChevronLeft, ChevronRight, Minus, Plus } from "lucide-react";
 import { Button } from "./ui/button";
 import Link from "next/link";
@@ -32,13 +33,9 @@ import {
 } from "@/components/ui/dialog";
 import { Badge } from "./ui/badge";
 import Image from "next/image";
+import { number } from "zod";
 
 export type CategoryType = {
-  categoryName: string;
-  _id: string;
-};
-
-export type CateFoodType = {
   categoryName: string;
   _id: string;
   foods: FoodType[];
@@ -52,53 +49,82 @@ export type FoodType = {
   price: number;
   _id: string;
 };
+// Server side render hiibel
+// export const BodyList = async() => {
+// const dataCate = await fetch(`${BASE_URL}/food-categories`, {
+//   headers: {
+//     "Content-Type": "application/json",
+//   },
+// });
+// const category = await dataCate.json();
+// // console.log(category);
 
-export const BodyList = async () => {
-  // Client sider render hiibel
-  // export const BodyList =  () => {
-  // const [foodList, setFoods] = useState([])
-  // useEffect(() => {
-  //   const fetchdata = async () => {
-  //     const dataCate = await fetch(`${BASE_URL}/food-categories`, {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     });
-  //     const category = await dataCate.json();
-  //     setFoods(category)
-  //     // console.log(category);
+// const dataFood = await fetch(`${BASE_URL}/food-categories/with-foods`, {
+//   headers: {
+//     "Content-Type": "application/json",
+//   },
+// });
+// const foods = await dataFood.json();
+// console.log(foods.categories);
+// const foodList = foods.categories;
+// // console.log(foodList)
 
-  //     // const dataFood = await fetch(`${BASE_URL}/food-categories/with-foods`, {
-  //     //   headers: {
-  //     //     "Content-Type": "application/json",
-  //     //   },
-  //     // });
-  //     // const foods = await dataFood.json();
-  //     // //   console.log(foods.categories);
-  //     // const foodList = foods.categories;
-  //     // console.log(foodList);
-  //     // setFoods(foodList)
-  //   };
-  //   fetchdata()
-  // },[]);
+export const BodyList = () => {
+  const [food, setFood] = useState<FoodType | null>(null);
+  const [category, setCategory] = useState<CategoryType[]>([]);
+  useEffect(() => {
+    const fetchdata = async () => {
+      const dataCate = await fetch(`${BASE_URL}/food-categories/with-foods`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const category = await dataCate.json();
+      setCategory(category.categories);
+      // const index = category.categories.findIndex()
+      // setFood(category.categories[index]?.foods[index] || null);
+      // console.log(category.categories);
+      console.log(category)
+    };
+    fetchdata();
+  }, []);
 
-  const dataCate = await fetch(`${BASE_URL}/food-categories`, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  const category = await dataCate.json();
-  // console.log(category);
+  
+  // const [foodCount, setFoodCount] = useState(1);
+  // const [foodTotalPrice, setFoodTotalPrice] = useState<number>();
 
-  const dataFood = await fetch(`${BASE_URL}/food-categories/with-foods`, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  const foods = await dataFood.json();
-  console.log(foods.categories);
-  const foodList = foods.categories;
-  // console.log(foodList)
+// categories.map((category: CategoryType) => {
+//   return category.foods.map((food: FoodType) => food.price);
+
+  // const handlePlus = (index: number) => {
+  //   setFoodCount((foodCount) => foodCount + 1);
+
+  //   const foodFirstPrice = category.map((category: CategoryType) => {return category.foods.map((food: FoodType, index:) => `${food.foodName}, ${food.price}`)});
+  //   console.log(foodFirstPrice)
+
+    
+  //   const foodPrice = category[index].foods[index].price;
+  //   // console.log(foodPrice)
+  //   setFoodTotalPrice(foodPrice * foodCount);
+  // };
+
+  // const handleMinus = (index: number) => {
+  //   if (foodCount > 1) {
+  //     setFoodCount((foodCount) => foodCount - 1);
+  //   } 
+  //   const foodPrice = category[index].foods[index].price;
+  //   setFoodTotalPrice(foodPrice * foodCount);
+  // };
+
+  // const cloned: number[] = [...category.flatMap((cate) => cate.foods.map((food) => food.price))];
+
+  // const [foodCountPrice, setFoodCountPrice] = useState<number | undefined>(cloned[0]);
+  // const handlePrice = (index: number) => {
+  //   const foodPrice = category[index].foods[index].price;
+  //   setFoodCountPrice(foodPrice);
+  //   console.log(foodPrice);
+  // }
+
   return (
     <div>
       <div>
@@ -111,7 +137,6 @@ export const BodyList = async () => {
             <ChevronLeft />
           </Button>
           <div className="flex gap-3  overflow-x-auto ">
-            {" "}
             {category.map((category: CategoryType) => {
               return (
                 <Link href={`#`} key={category._id}>
@@ -131,14 +156,14 @@ export const BodyList = async () => {
         </div>
         <div>
           <div className="p-(--spacing-5)">
-            {foodList.map((catefood: CateFoodType) => {
+            {category.map((catefood: CategoryType) => {
               return (
                 <div key={catefood._id}>
                   <h2 className="font-bold text-3xl mb-(--spacing-5) mt-(--spacing-6)">
                     {catefood.categoryName}
                   </h2>
                   <div className="flex gap-9">
-                    {catefood.foods.map((food: FoodType) => {
+                    {catefood.foods.map((food: FoodType, index) => {
                       return (
                         <div key={food._id}>
                           <Card className="w-[400px] h-[350px]">
@@ -152,13 +177,13 @@ export const BodyList = async () => {
                                 <DialogTrigger asChild>
                                   <Button
                                     variant="outline"
-                                    className="absolute z-10 right-10 bottom-4 rounded-2xl"
+                                    className="absolute z-10 right-10 bottom-4 rounded-full"
                                   >
                                     <Plus />
                                   </Button>
                                 </DialogTrigger>
-                                <DialogContent className=" h-[300px] box-content">
-                                  <DialogTitle className="flex p-0 gap-4">
+                                <DialogContent className=" h-[300px] w-[600px] box-content">
+                                  <DialogTitle className="flex p-0 gap-6">
                                     <Image
                                       alt="foodimage"
                                       width={300}
@@ -178,7 +203,7 @@ export const BodyList = async () => {
                                       </DialogHeader>
 
                                       <div className="flex flex-col gap-2">
-                                        <div className="flex justify-between gap-7">
+                                        <div className="flex justify-between gap-4">
                                           <div className="flex flex-col">
                                             <p className="text-sm leading-3">
                                               Total Price
@@ -188,11 +213,12 @@ export const BodyList = async () => {
                                             </p>
                                           </div>
 
-                                          <div className=" flex justify-between items-center">
-                                            <div className="flex gap-3 items-center">
+                                          <div className=" flex justify-between items-center ">
+                                            <div className="flex items-center justify-between w-25">
                                               <Button
                                                 className="w-8 h-8 rounded-4xl"
                                                 variant="outline"
+                                                
                                               >
                                                 <Minus />
                                               </Button>
@@ -200,6 +226,7 @@ export const BodyList = async () => {
                                               <Button
                                                 className="w-8 h-8 rounded-4xl"
                                                 variant="outline"
+                                                
                                               >
                                                 <Plus />
                                               </Button>
