@@ -61,12 +61,12 @@ export default function AdminPage() {
       </DropdownMenu>
 
       <div className="flex">
-        <SidebarProvider>
+      
           <div>
             <AppSidebar onNavigate={setActivePage}></AppSidebar>
             <main className="w-full">{renderPage()}</main>
           </div>
-        </SidebarProvider>
+       
 
         {/* <AdminOrderSec/>
           <AdminFoodMenuSection/> */}
