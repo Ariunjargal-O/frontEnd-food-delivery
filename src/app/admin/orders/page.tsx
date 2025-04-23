@@ -10,13 +10,14 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { columns, Payment } from "@/app/admin/components/columns";
-import { DataTable } from "./data-table";
+
 import { useEffect, useState } from "react";
 import { BASE_URL } from "@/constnants";
+import { DataTable } from "../components/data-table";
 
 export type OrderType = {};
 
-export const AdminOrderSec = () => {
+export default function AdminOrderSec () {
   const [order, setOrder] = useState([]);
   useEffect(() => {
     const data = async () => {
@@ -34,13 +35,13 @@ export const AdminOrderSec = () => {
   }, []);
 
   return (
-    <div>
+    <div className="px-5 py-10">
       <div className="container py-10">
         <DataTable columns={columns} data={order} />
       </div>
 
       <div>
-        hi
+      
         <Pagination>
           <PaginationContent>
             <PaginationItem>

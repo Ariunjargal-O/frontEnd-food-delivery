@@ -1,5 +1,11 @@
 import * as React from "react";
-import { GalleryVerticalEnd, LayoutDashboard, LayoutList, Settings, Truck } from "lucide-react";
+import {
+  GalleryVerticalEnd,
+  LayoutDashboard,
+  LayoutList,
+  Settings,
+  Truck,
+} from "lucide-react";
 
 import {
   Sidebar,
@@ -21,41 +27,35 @@ const data = {
     {
       title: "Food menu",
       icon: <LayoutDashboard />,
+      url: "/admin",
     },
     {
       title: "Orders",
       icon: <Truck />,
+      url: "/admin/orders",
     },
     {
       title: "Settings",
       icon: <Settings />,
+      url: "/admin/settings",
     },
   ],
 };
 
-
-
 interface NavItem {
   title: string;
   icon: React.ReactNode;
+  url: string;
 }
-
 
 // export function AppSidebar({ ...props}: React.ComponentProps<typeof Sidebar>, onNavigate) {
 // interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
 //   onNavigate: (title: string) => void;
 // }
 
-type AppSidebarProps = {
-  onNavigate: (page: string) => void;
-  // activePage: string;
-};
- 
- 
-
-export function AppSidebar({ ...props }: AppSidebarProps) {
+export function AppSidebar() {
   return (
-    <Sidebar {...props}>
+    <Sidebar>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -83,21 +83,14 @@ export function AppSidebar({ ...props }: AppSidebarProps) {
           <SidebarMenu className="gap-7 ">
             {data.navMain.map((item: NavItem) => (
               <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton onClick={() => {
-                        props.onNavigate(item.title);
-                      }}
-                  asChild
-                  className=" hover:bg-red-100 px-4 py-5"
-                >
-                  <div className="gap-3">
+                <SidebarMenuButton className=" hover:bg-red-100 px-4 py-5">
+                <a href={item.url}><div className="gap-3 flex items-center">
                     <p className="font-bold leading-5 text-2xl ">{item.icon}</p>
-                    <p
-                      className="font-bold leading-5 text-2xl cursor-pointer"
-                     
-                    >
+                    <p className="font-bold leading-5 text-2xl cursor-pointer">
                       {item.title}
                     </p>
-                  </div>
+                  </div></a>
+                  
                 </SidebarMenuButton>
               </SidebarMenuItem>
             ))}
