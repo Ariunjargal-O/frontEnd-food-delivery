@@ -46,6 +46,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { set } from "react-hook-form";
+import { Are_You_Serious } from "next/font/google";
 
 export type CateFoodType = {
   categoryName: string;
@@ -80,7 +82,7 @@ type ContextType = {
 };
 
 export default function AdminPage() {
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState<CateFoodType[]>([]);
   const [text, setText] = useState("");
   useEffect(() => {
     const getdataCate = async () => {
@@ -90,7 +92,7 @@ export default function AdminPage() {
         },
       });
       const categoriesList = await res.json();
-      console.log(categoriesList);
+      // console.log(categoriesList);
       setCategories(categoriesList.categories);
       // setFood(categoriesList.categories);
       // console.log(categoriesList.categories);
@@ -104,11 +106,91 @@ export default function AdminPage() {
       await fetch(`${BASE_URL}/foods/${foodId}`, {
         method: "DELETE",
       });
-
       window.location.reload();
     }
   };
 
+  const [addCate, setAddCate] = useState<CateName>({
+    categoryName: "",
+  });
+
+  const handleAddCate = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setAddCate({
+      categoryName: event.target.value,
+    });
+    console.log(addCate);
+  };
+
+  const onHandleAddCategory = async () => {
+    const res = await fetch(`${BASE_URL}/food-categories`, {
+      method: "POST",
+      body: JSON.stringify(addCate),
+      headers: {
+        "Content-Type": "application/json",
+        "authorization": `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    const data = await res.json();
+    console.log(data);
+    if (res.ok) {
+      setAddCate({
+        categoryName: "",
+      });
+      setCategories((prev: any) => [...prev, data]);
+      window.location.reload();
+    }
+
+    window.location.reload();
+  };
+
+  const [addFoodName, setAddFoodName] = useState<FoodType>();
+  const [addFoodPrice, setAddFoodPrice] = useState<FoodType>();
+  const [addFoodIngredients, setAddFoodIngredients] = useState<FoodType>();
+  const [addFoodImage, setAddFoodImage] = useState<FoodType>();
+
+  const addFood = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setAddFoodName((prev) => ({
+      ...prev,
+      foodName: event.target.value,
+      categoryId: prev?.categoryId || "",
+      image: prev?.image || "",
+      ingredients: prev?.ingredients || [],
+      price: prev?.price || 0,
+      _id: prev?._id || "",
+    }));
+    setAddFoodPrice((prev) => ({
+      ...prev,
+      foodName: prev?.foodName || "",
+      categoryId: prev?.categoryId || "",
+      image: prev?.image || "",
+      ingredients: prev?.ingredients || [],
+      price: parseFloat(event.target.value) || 0,
+      _id: prev?._id || "",
+    }));
+    setAddFoodIngredients((prev) => ({
+      ...prev,
+      foodName: prev?.foodName || "",
+      categoryId: prev?.categoryId || "",
+      image: prev?.image || "",
+      ingredients: event.target.value
+        .split(",")
+        .map((ingredient) => ingredient.trim()),
+      price: prev?.price || 0,
+      _id: prev?._id || "",
+    }));
+    setAddFoodImage((prev) => ({
+      ...prev,
+      foodName: prev?.foodName || "",
+      categoryId: prev?.categoryId || "",
+      image: event.target.value,
+      ingredients: prev?.ingredients || [],
+      price: prev?.price || 0,
+      _id: prev?._id || "",
+    }));
+  };
+  console.log(addFoodName, addFoodPrice, addFoodIngredients, addFoodImage);
+
+  const AddDishes = () => {};
   return (
     <div className="p-6 w-full">
       <DropdownMenu>
@@ -176,13 +258,14 @@ export default function AdminPage() {
                     Category name
                   </p>
                   <Input
-                    type=""
+                    type="text"
                     placeholder="List ingredType category name..."
                     className=""
+                    onChange={handleAddCate}
                   ></Input>
                 </div>
 
-                <Button>Add category</Button>
+                <Button onClick={onHandleAddCategory}>Add category</Button>
               </DialogContent>
             </Dialog>
           </div>
@@ -214,7 +297,8 @@ export default function AdminPage() {
                             <DialogHeader>
                               <DialogTitle className="pb-2">
                                 <p className="font-bold text-lg leading-7">
-                                  Add new Dish to <span>Appetizers</span>
+                                  Add new Dish to{" "}
+                                  <span>{category.categoryName}</span>
                                 </p>
                               </DialogTitle>
                             </DialogHeader>
@@ -227,6 +311,7 @@ export default function AdminPage() {
                                   className="w-[220px]"
                                   type="text"
                                   placeholder="Type food name"
+                                  onChange={addFood}
                                 ></Input>
                               </div>
                               <div className="flex flex-col gap-3 ">
@@ -237,6 +322,7 @@ export default function AdminPage() {
                                   className="w-[220px]"
                                   type="text"
                                   placeholder="Enter price..."
+                                  onChange={addFood}
                                 ></Input>
                               </div>
                             </div>
@@ -248,6 +334,7 @@ export default function AdminPage() {
                                 type=""
                                 placeholder="List ingredients..."
                                 className="h-[90px]"
+                                onChange={addFood}
                               ></Input>
                             </div>
                             <div className="flex flex-col gap-3">
@@ -259,7 +346,11 @@ export default function AdminPage() {
                                 variant="outline"
                                 className="h-[138px] border-2 border-dashed border-blue-300 rounded-2xl bg-blue-50 items-center flex justify-center hover:bg-red-100"
                               >
-                                <Input type="file" className="hidden"></Input>
+                                <Input
+                                  type="file"
+                                  className="hidden"
+                                  onChange={addFood}
+                                ></Input>
                                 <div className="flex flex-col justify-self-center ">
                                   <div className="rounded-full border-0 mx-auto bg-white h-10 w-10 flex justify-center items-center">
                                     <ImageIcon size={30} />
@@ -271,7 +362,7 @@ export default function AdminPage() {
                               </Button>
                             </div>
 
-                            <Button>Add dish</Button>
+                            <Button onClick={AddDishes}>Add dish</Button>
                           </DialogContent>
                         </Dialog>
                       </CardContent>
@@ -335,11 +426,13 @@ export default function AdminPage() {
                                           <SelectContent>
                                             {categories.map(
                                               (cat: CateFoodType) => (
-                                                <SelectItem
-                                                  value={cat.categoryName}
-                                                >
-                                                  {cat.categoryName}
-                                                </SelectItem>
+                                                <div key={cat._id}>
+                                                  <SelectItem
+                                                    value={cat.categoryName}
+                                                  >
+                                                    {cat.categoryName}
+                                                  </SelectItem>
+                                                </div>
                                               )
                                             )}
                                           </SelectContent>

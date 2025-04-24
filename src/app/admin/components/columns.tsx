@@ -137,25 +137,16 @@ export const columns: ColumnDef<Payment>[] = [
       console.log(row.getValue("foodOrderItems"));
       return (
         <div className="capitalize">
-          <Select>
+          <Select onValueChange={(value) => console.log(value)}>
             <SelectTrigger className="w-[100px] border rounded-2xl">
               <SelectValue placeholder={row.getValue("foodOrderStatus")} />
             </SelectTrigger>
-            {/* {(row.getValue("foodOrderStatus") as string[]).map((status) => (
-             <SelectContent>
-               <SelectItem key={status} value={status}>
-               <SelectItem value="light">Pending</SelectItem>
-              <SelectItem value="light">Delivered</SelectItem>
-              <SelectItem value="light">Cancelled</SelectItem>
-              </SelectItem>
-             </SelectContent>
-            ))} */}
+
             <SelectContent>
-              <SelectItem value="light">Pending</SelectItem>
-              <SelectItem value="light">Delivered</SelectItem>
-              <SelectItem value="light">Cancelled</SelectItem>
+              <SelectItem value="Pending">Pending</SelectItem>
+              <SelectItem value="Delivered">Delivered</SelectItem>
+              <SelectItem value="Cancelled">Cancelled</SelectItem>
             </SelectContent>
-           
           </Select>
         </div>
       );
@@ -163,6 +154,9 @@ export const columns: ColumnDef<Payment>[] = [
   },
 ];
 
+//  <SelectItem value="light">Pending</SelectItem>
+//  <SelectItem value="light">Delivered</SelectItem>
+//  <SelectItem value="light">Cancelled</SelectItem>
 // "use client"
 
 // import * as React from "react"
